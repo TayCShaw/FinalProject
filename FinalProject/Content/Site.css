@@ -1,0 +1,19 @@
+﻿body {
+}
+header {
+    background: purple;
+    overflow: hidden;
+}
+
+button {
+    float: right;
+    background-color: #ff6a00;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+navbar {
+    background-color: #0094ff;
+    font: 12px arial, verdana;
+}

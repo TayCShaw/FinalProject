@@ -4,67 +4,35 @@
 
 <html>
 <head runat="server">
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-            height: 466px;
-        }
-        .auto-style2 {
-            height: 113px;
-        }
         .auto-style3 {
-            width: 100%;
-            height: 33px;
-            margin-top: 0px;
-        }
-        .auto-style4 {
-            height: 140px;
-        }
-        .auto-style5 {
-            height: 30px;
-        }
-        .auto-style6 {
-            height: 144px;
-        }
-        .auto-style7 {
-            height: 31px;
+            height: 126px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <header class="auto-style3">
+            <asp:Image ID="Image2" runat="server" Height="122px" ImageUrl="https://static1.squarespace.com/static/543d4310e4b0aad95e6f05cb/t/598add2d1e5b6cbabca1e6f5/1502274166590/" Width="172px" />
+            <Button type="button" >SIGN UP</Button>
+            <Button type="button" >LOGIN</Button>
+        </header>
+
         <div>
-                <table class="auto-style1">
-                    <tr>
-                        <td class="auto-style2">
-                            <asp:Image ID="Image2" runat="server" Height="81px" ImageUrl="https://static1.squarespace.com/static/543d4310e4b0aad95e6f05cb/t/598add2d1e5b6cbabca1e6f5/1502274166590/" Width="153px" />
-                            HEADER</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style5">
-                            <asp:SiteMapPath ID="SiteMapPath1" runat="server">
-                            </asp:SiteMapPath>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style4">
-                            <table class="auto-style3">
-                                <tr>
-                                    <td class="auto-style6">WHATEVER THE PAGE IS SUPPOSED TO BE ABOUT<br />
-                                        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
-                                        </asp:ContentPlaceHolder>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style7">FOOTSIES</td>
-                    </tr>
-                </table>
+            <asp:SiteMapPath CssClass="navbar" ID="SiteMapPath1" runat="server" PathSeparator=" > " RenderCurrentNodeAsLink="false"></asp:SiteMapPath>
+        </div>
+
+        <div><%--Stickied Threads --%>
+
+        </div>
+
+        <div><%--??? --%>
+
         </div>
     </form>
 </body>
