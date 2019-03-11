@@ -15,24 +15,36 @@
         }
     </style>
 </head>
+<%-- 
+    MAROON COLOR HEX: #6A0032
+    GOLD COLOR HEX: #FFC82E
+    --%>
 <body>
     <form id="form1" runat="server">
-        <header class="auto-style3">
-            <asp:Image ID="Image2" runat="server" Height="122px" ImageUrl="https://static1.squarespace.com/static/543d4310e4b0aad95e6f05cb/t/598add2d1e5b6cbabca1e6f5/1502274166590/" Width="172px" />
-            <Button type="button" >SIGN UP</Button>
-            <Button type="button" >LOGIN</Button>
-        </header>
+        <div class="container">
+            <header class="auto-style3">
+                <asp:Image ID="Image2" runat="server" Height="122px" ImageUrl="https://static1.squarespace.com/static/543d4310e4b0aad95e6f05cb/t/598add2d1e5b6cbabca1e6f5/1502274166590/" Width="172px" />
+                <asp:button runat="server" CssClass="button" Text="Sign Up" 
+                    BackColor="#FFC82E"
+                    ForeColor="#6A0032"/>
+                <asp:button runat="server" CssClass="button" Text="Login"  
+                    BackColor="#FFC82E"
+                    ForeColor="#6A0032"/>
+            </header>
 
-        <div>
-            <asp:SiteMapPath CssClass="navbar" ID="SiteMapPath1" runat="server" PathSeparator=" > " RenderCurrentNodeAsLink="false"></asp:SiteMapPath>
-        </div>
+            <div>
+                <asp:SiteMapPath CssClass="navbar" ID="SiteMapPath1" runat="server" PathSeparator=" > " RenderCurrentNodeAsLink="false"></asp:SiteMapPath>
+            </div>
 
-        <div><%--Stickied Threads --%>
+            <div>
+                <%--Stickied Threads --%>
+            </div>
 
-        </div>
-
-        <div><%--??? --%>
-
+            <div>
+                <%--??? --%>
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
         </div>
     </form>
 </body>

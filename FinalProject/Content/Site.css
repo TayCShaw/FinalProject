@@ -1,11 +1,14 @@
-﻿body {
+﻿
+
+body {
 }
 header {
-    background: purple;
+    background: #6a0032;
     overflow: hidden;
+    margin: 0 5px;
 }
 
-button {
+.button {
     float: right;
     background-color: #ff6a00;
     padding-top: 10px;
@@ -13,7 +16,7 @@ button {
     vertical-align: middle;
 }
 
-navbar {
-    background-color: #0094ff;
-    font: 12px arial, verdana;
+table {
+    margin-left: auto;
+    margin-right: auto;
 }
