@@ -1,11 +1,21 @@
 ﻿
-
-body {
-}
 header {
     background: #6a0032;
     overflow: hidden;
     margin: 0 5px;
+    border-radius: 10px;
+}
+
+.div-main{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.div-table {
+    margin-left: 40px;
+    margin-right: 40px;
+    border-color: #6a0032;
 }
 
 .button {
@@ -14,9 +24,4 @@ header {
     padding-top: 10px;
     text-align: center;
     vertical-align: middle;
-}
-
-table {
-    margin-left: auto;
-    margin-right: auto;
 }
