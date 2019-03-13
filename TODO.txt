@@ -1,0 +1,31 @@
+TODO
+	-make server
+	-add login / logout
+	-css pages
+	
+
+
+
+Server
+	Tables (vertabelo.com/blog/technical-articles/database-model-for-an-online-discussion-forum-part-1)
+		-user info
+			-PK(idNumber)
+			-userName
+			-password(hashed)
+			-DateCreated
+
+		-Thread
+			-PK(threadID)
+			-subject  //stored as varchar
+			-timeCreated 
+			-userAccId (FK) //who posted
+
+
+		-Post
+			-PK(postId)
+			-content //varChar
+			-Created
+			-ThreadId (FK)
+			-userId (FK)
+
+		
