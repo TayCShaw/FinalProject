@@ -18,18 +18,21 @@
 <%-- 
     MAROON COLOR HEX: #6A0032
     GOLD COLOR HEX: #FFC82E
+
+    TO-DO
+    ++Div tag for image, add padding to make header have space aroudn image?
     --%>
 <body>
     <form id="form1" runat="server">
         <div class="div-main">
             <header class="auto-style3">
-                <asp:Image ID="Image2" runat="server" Height="130px" ImageUrl="https://static1.squarespace.com/static/543d4310e4b0aad95e6f05cb/t/598add2d1e5b6cbabca1e6f5/1502274166590/" Width="172px" />
+                <asp:Image ID="Image2" runat="server" Height="130px" ImageUrl="http://pngimg.com/uploads/dragon/dragon_PNG996.png" Width="172px" />
                 <asp:button runat="server" CssClass="button" Text="Sign Up" 
                     BackColor="#FFC82E"
-                    ForeColor="#6A0032"/>
+                    ForeColor="#6A0032" ID="btnSignup" OnClick="btnSignup_Click"/>
                 <asp:button runat="server" CssClass="button" Text="Login"  
                     BackColor="#FFC82E"
-                    ForeColor="#6A0032"/>
+                    ForeColor="#6A0032" ID="btnLogin"/>
             </header>
 
             <div>
