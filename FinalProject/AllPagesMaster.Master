@@ -32,7 +32,7 @@
                     ForeColor="#6A0032" ID="btnSignup" OnClick="btnSignup_Click"/>
                 <asp:button runat="server" CssClass="button" Text="Login"  
                     BackColor="#FFC82E"
-                    ForeColor="#6A0032" ID="btnLogin"/>
+                    ForeColor="#6A0032" ID="btnLogin" OnClick="btnLogin_Click"/>
             </header>
 
             <div>

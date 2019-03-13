@@ -13,5 +13,12 @@ namespace FinalProject
         {
 
         }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+
+            String username = txtUsername.Text;
+            String preparedQuery = "SELECT userName FROM User WHERE User.userName = " + username;
+        }
     }
 }
