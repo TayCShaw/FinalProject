@@ -15,44 +15,43 @@
 
     <table class="w-100">
         <tr>
-            <td class="auto-style4">Username:</td>
-            <td class="auto-style5">
-                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <td class="auto-style6">
+                <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
             </td>
-            <td>&nbsp;</td>
+            <td class="auto-style7">
+                <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+            </td>
         </tr>
         <tr>
-            <td class="auto-style4">E-mail address:</td>
-            <td class="auto-style5">
-                <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+            <td class="auto-style4">
+                <asp:Label ID="lblPassword" runat="server" Text="Password"></asp:Label>
             </td>
-            <td>&nbsp;</td>
+            <td class="auto-style5">
+                <input id="inptPassword" type="password" /></td>
         </tr>
         <tr>
-            <td class="auto-style4">Confirm e-mail address:</td>
-            <td class="auto-style5">
-                <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+            <td class="auto-style4">
+                <asp:Label ID="lblConfirmPassword" runat="server" Text="Confirm Password"></asp:Label>
             </td>
-            <td>&nbsp;</td>
+            <td class="auto-style5">
+                <input id="inptConfirmPassword" type="password" /></td>
         </tr>
         <tr>
-            <td class="auto-style4">Password:</td>
+            <td class="auto-style4">&nbsp;</td>
             <td class="auto-style5">
-                <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" />
             </td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style4">(Password must be between 6 and 16 characters long)</td>
+            <td class="auto-style4">
+                <asp:Label ID="lblErrorMessages" runat="server"></asp:Label>
+            </td>
             <td class="auto-style5">&nbsp;</td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style4">Confirm password:</td>
+            <td class="auto-style4">&nbsp;</td>
             <td class="auto-style5">
-                <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
-            </td>
-            <td>&nbsp;</td>
+                &nbsp;</td>
         </tr>
     </table>
 
@@ -65,6 +64,14 @@
         .auto-style5 {
             width: 441px;
         }
-    </style>
+        .auto-style6 {
+            width: 346px;
+            height: 29px;
+        }
+        .auto-style7 {
+            width: 441px;
+            height: 29px;
+        }
+        </style>
 </asp:Content>
 
