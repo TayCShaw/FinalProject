@@ -1,12 +1,15 @@
 TODO
-	-make server
 	-add login / logout
 	-css pages
+	-cascading user name changes
+
 	
 
 
 
 Server
+// all tables created
+
 	Tables (vertabelo.com/blog/technical-articles/database-model-for-an-online-discussion-forum-part-1)
 		-user info
 			-PK(idNumber)
@@ -27,5 +30,3 @@ Server
 			-Created
 			-ThreadId (FK)
 			-userId (FK)
-
-		
