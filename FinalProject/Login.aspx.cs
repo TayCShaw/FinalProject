@@ -7,16 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace FinalProject
 {
-    public partial class Site1 : System.Web.UI.MasterPage
+    public partial class WebForm3 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void btnSignup_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Signup.aspx");
         }
     }
 }
