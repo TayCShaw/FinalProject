@@ -31,7 +31,7 @@ namespace FinalProject
                     while (dataReader.Read())
                     {
                         String output = " ";
-                        output += dataReader.GetValue(0); //h
+                        output += dataReader.GetValue(0); //hj
                         if(output == username)
                         {
                             lblErrorMessages.Text = "USERNAME ALREADY PICKED, PICK AGAIN LOSER";
