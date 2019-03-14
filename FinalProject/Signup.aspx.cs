@@ -12,7 +12,7 @@ namespace FinalProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //h
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace FinalProject
                     while (dataReader.Read())
                     {
                         String output = " ";
-                        output += dataReader.GetValue(0); //hj
+                        output += dataReader.GetValue(0);
                         if(output == username)
                         {
                             lblErrorMessages.Text = "USERNAME ALREADY PICKED, PICK AGAIN LOSER";
