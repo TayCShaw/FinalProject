@@ -69,9 +69,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="App_Data\Forum.mdf">
+    <Content Include="App_Data\Forum.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <Content Include="App_Data\Forum_log.ldf">
       <DependentUpon>Forum.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
