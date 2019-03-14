@@ -5,48 +5,74 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Web.Configuration;
+using System.Data;
 
 namespace FinalProject
 {
     public partial class WebForm2 : System.Web.UI.Page
     {
+        private static string connectionString = WebConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;
+        
+        protected SqlConnection makeConnection()
+        {
+            return new SqlConnection(connectionString);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            //h
+
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            Boolean usernameFound = false;
-            lblErrorMessages.Text = ""; // Incase error displayed
-            String username = txtUsername.Text;
-            String preparedQuery = "SELECT userName " +
-                "FROM  Users WHERE userName = '" + username + "';";
-
-
-            using (SqlConnection connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\riegl2s\\Source\\Repos\\FinalProject\\FinalProject\\App_Data\\Forum.mdf; Integrated Security=True"))
+            SqlConnection connection = makeConnection();
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(preparedQuery, connection))
+                connection.Open();
+            }
+            catch (Exception er)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        protected void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+            lblErrorMessages.Text = "";
+            
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("Select userName from Users where userName = @username", connection);
+            cmd.Parameters.AddWithValue("@username",txtUsername.Text);
+            SqlDataReader reader;
+            try
+            {
+               
+                connection.Open();
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(preparedQuery, connection);
-                    SqlDataReader dataReader = command.ExecuteReader();
-                    while (dataReader.Read())
+                    if (txtUsername.Text.Equals(reader["userName"].ToString()))
                     {
-                        if(username == (String)dataReader.GetValue(0))
-                        {
-                            lblErrorMessages.Text = "found the name " + username + ". Already taken.";
-                            break;
-                        }
+                        lblErrorMessages.Text = "Username already taken, choose another.";
+                        return;
                     }
-
-                    if (!usernameFound)
-                    {
-
-                    }
-
                 }
-            }               
+                lblErrorMessages.Text = "Username available!";
+
+            }
+            catch(Exception er)
+            {
+                lblErrorMessages.Text = er.ToString();
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
