@@ -31,3 +31,5 @@ Server
 			-Created
 			-ThreadId (FK)
 			-userId (FK)
+
+			sams path: C:\\Users\\riegl2s\\Source\\Repos\\FinalProject\\FinalProject\\App_Data\\Forum.mdf

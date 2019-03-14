@@ -24,7 +24,7 @@ namespace FinalProject
                 "FROM  Users WHERE userName = '" + username + "';";
 
 
-            using (SqlConnection connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Taylor\\Source\\Repos\\TayCShaw\\FinalProject\\FinalProject\\App_Data\\Forum.mdf;Integrated Security=True"))
+            using (SqlConnection connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\riegl2s\\Source\\Repos\\FinalProject\\FinalProject\\App_Data\\Forum.mdf; Integrated Security=True"))
             {
                 using (SqlCommand cmd = new SqlCommand(preparedQuery, connection))
                 {
