@@ -3,7 +3,8 @@ TODO
 	-css pages
 	-cascading user name changes
 
-	--PAGE 442 in bOOK
+	--PAGE 442 in bOOK\
+	--https://www.codeproject.com/Articles/425150/Beginners-guide-to-a-secure-way-of-storing-passwor
 
 
 

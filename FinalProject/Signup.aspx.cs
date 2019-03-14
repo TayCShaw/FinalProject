@@ -17,10 +17,13 @@ namespace FinalProject
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            Boolean usernameFound = false;
+            lblErrorMessages.Text = ""; // Incase error displayed
             String username = txtUsername.Text;
             String preparedQuery = "SELECT userName " +
-                "FROM  " + // LEFT OFF HERE, TRYING TO GET CONNECTED TO A TABLE
-                "WHERE User.userName = " + username + ";";
+                "FROM  Users WHERE userName = '" + username + "';";
+
+
             using (SqlConnection connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Taylor\\Source\\Repos\\TayCShaw\\FinalProject\\FinalProject\\App_Data\\Forum.mdf;Integrated Security=True"))
             {
                 using (SqlCommand cmd = new SqlCommand(preparedQuery, connection))
@@ -30,16 +33,16 @@ namespace FinalProject
                     SqlDataReader dataReader = command.ExecuteReader();
                     while (dataReader.Read())
                     {
-                        String output = " ";
-                        output += dataReader.GetValue(0);
-                        if(output == username)
+                        if(username == (String)dataReader.GetValue(0))
                         {
-                            lblErrorMessages.Text = "USERNAME ALREADY PICKED, PICK AGAIN LOSER";
+                            lblErrorMessages.Text = "found the name " + username + ". Already taken.";
+                            break;
                         }
-                        else
-                        {
-                            lblErrorMessages.Text = "USERNAME " + username + " IS AVAILABLE HAHAHAHAHAHEYEYEYEYEYEY";
-                        }
+                    }
+
+                    if (!usernameFound)
+                    {
+
                     }
 
                 }
