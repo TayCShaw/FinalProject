@@ -24,27 +24,22 @@ namespace FinalProject
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("Insert into Users (userId, userName, userPassword) values(@id, @username, @password)", connection);
-            //cmd.Parameters.AddWithValue("@id", ---);
-            cmd.Parameters.AddWithValue("@username",txtUsername.Text);
-            cmd.Parameters.AddWithValue("@password",txtConfirmPassword.Text);
+            SqlCommand cmd = new SqlCommand("Insert into Users (userName, userPassword) values(@username, @password)", connection);
+            SqlDataReader reader;
 
             if (txtPassword.Text.Equals(txtConfirmPassword.Text))
-            {
+            { 
                 lblUsernameError.Text = "SAME PASS";
                 try
                 {
                     connection.Open();
-                    //STORE THIS IN DATABASE
                     string passhash = Security.Sha256(txtPassword.Text);
-                    //int[] bush = new int[10];
+                    cmd.Parameters.AddWithValue("@username", txtUsername.Text);
+                    cmd.Parameters.AddWithValue("@password", passhash);
+                    reader = cmd.ExecuteNonQuery();
 
-                    SqlCommand count = new SqlCommand("SELECT * from Users", connection);
-                    SqlDataReader reader;
-                    reader = count.ExecuteReader();
-                    int bush = (int) reader["userID"];
-                    lblErrorMessages.Text = bush.ToString();
-                    
+
+
 
                 }
                 catch (Exception er)
