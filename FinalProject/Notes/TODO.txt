@@ -1,3 +1,6 @@
+
+
+
 TODO
 	-add login / logout
 	-css pages
@@ -5,6 +8,39 @@ TODO
 
 	--PAGE 442 in bOOK\
 	--https://www.codeproject.com/Articles/425150/Beginners-guide-to-a-secure-way-of-storing-passwor
+
+
+	---Make button on sign-up page unclickable on error
+	-?-Check username availability as user types, not when done in box
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -31,3 +67,8 @@ Server
 			-Created
 			-ThreadId (FK)
 			-userId (FK)
+
+			sams path: C:\\Users\\riegl2s\\Source\\Repos\\FinalProject\\FinalProject\\App_Data\\Forum.mdf
+
+			tays path: HOME: C:\\Users\\Taylor\\Source\\Repos\\TayCShaw\\FinalProject\\FinalProject\\App_Data\\Forum.mdf;Integrated Security=True
+			           SCHOOL: C:\\Users\\shaw1t\\Source\\Repos\\FinalProject\\FinalProject\\App_Data\\Forum.mdf;Integrated Security=True

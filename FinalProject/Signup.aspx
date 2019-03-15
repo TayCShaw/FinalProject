@@ -19,7 +19,8 @@
                 <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
             </td>
             <td class="auto-style7">
-                <asp:TextBox ID="txtUsername" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtUsername" runat="server" AutoPostBack="True" OnTextChanged="txtUsername_TextChanged"></asp:TextBox>
+                <asp:Label ID="lblUsernameError" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -27,14 +28,17 @@
                 <asp:Label ID="lblPassword" runat="server" Text="Password"></asp:Label>
             </td>
             <td class="auto-style5">
-                <input id="inptPassword" type="password" /></td>
+                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+            </td>
         </tr>
         <tr>
             <td class="auto-style4">
                 <asp:Label ID="lblConfirmPassword" runat="server" Text="Confirm Password"></asp:Label>
             </td>
             <td class="auto-style5">
-                <input id="inptConfirmPassword" type="password" /></td>
+                <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password"></asp:TextBox>
+                <asp:Label ID="lblPasswordError" runat="server"></asp:Label>
+            </td>
         </tr>
         <tr>
             <td class="auto-style4">&nbsp;</td>
