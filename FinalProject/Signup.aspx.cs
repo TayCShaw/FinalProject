@@ -24,7 +24,6 @@ namespace FinalProject
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmd =new SqlCommand("Insert into Users (userId, userName, userPasswordvalues(@id, @username, @password)", connection);
             //cmd.Parameters.AddWithValue("@id", ---);
-            
             cmd.Parameters.AddWithValue("@username",txtUsername.Text);
             cmd.Parameters.AddWithValue("@password",txtConfirmPassword.Text);
             try

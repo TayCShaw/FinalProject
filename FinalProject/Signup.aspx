@@ -19,7 +19,7 @@
                 <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
             </td>
             <td class="auto-style7">
-                <asp:TextBox ID="txtUsername" runat="server" AutoPostBack="True" onkeypress="txtUsername_TextChanged()"></asp:TextBox>
+                <asp:TextBox ID="txtUsername" runat="server" AutoPostBack="True" OnTextChanged="txtUsername_TextChanged"></asp:TextBox>
                 <asp:Label ID="lblUsernameError" runat="server"></asp:Label>
             </td>
         </tr>
