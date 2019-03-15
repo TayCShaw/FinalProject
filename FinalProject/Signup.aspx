@@ -15,7 +15,7 @@
 
     <table class="w-100">
         <tr>
-            <td class="auto-style6">
+            <td class="auto-style6"> 
                 <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
             </td>
             <td class="auto-style7">
