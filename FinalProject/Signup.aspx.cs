@@ -13,6 +13,8 @@ namespace FinalProject
     public partial class WebForm2 : System.Web.UI.Page
     {
         private static string connectionString = WebConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;
+        private static string password = "";
+        private static string confirmedPassword = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,23 +24,42 @@ namespace FinalProject
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            SqlCommand cmd =new SqlCommand("Insert into Users (userId, userName, userPasswordvalues(@id, @username, @password)", connection);
+            SqlCommand cmd = new SqlCommand("Insert into Users (userId, userName, userPassword) values(@id, @username, @password)", connection);
             //cmd.Parameters.AddWithValue("@id", ---);
             cmd.Parameters.AddWithValue("@username",txtUsername.Text);
             cmd.Parameters.AddWithValue("@password",txtConfirmPassword.Text);
-            try
-            {
-                connection.Open();
-            }
-            catch (Exception er)
-            {
 
-            }
-            finally
+            if (txtPassword.Text.Equals(txtConfirmPassword.Text))
             {
-                connection.Close();
+                lblUsernameError.Text = "SAME PASS";
+                try
+                {
+                    connection.Open();
+                    //STORE THIS IN DATABASE
+                    string passhash = Security.Sha256(txtPassword.Text);
+                    //int[] bush = new int[10];
+
+                    SqlCommand count = new SqlCommand("SELECT * from Users", connection);
+                    SqlDataReader reader;
+                    reader = count.ExecuteReader();
+                    int bush = (int) reader["userID"];
+                    lblErrorMessages.Text = bush.ToString();
+                    
+
+                }
+                catch (Exception er)
+                {
+                    lblPasswordError.Text = er.ToString();
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
+
+            
         }
+
 
         protected void txtUsername_TextChanged(object sender, EventArgs e)
         {
