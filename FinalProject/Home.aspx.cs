@@ -11,6 +11,10 @@ namespace FinalProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.Cookies["Username"] != null)
+            {
+                lblTest.Text = Request.Cookies["Username"].Value;
+            }
 
         }
     }

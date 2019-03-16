@@ -15,6 +15,25 @@ TODO
 	-Add functionality for creatings posts
 	-Add the core topics for the website and add those to the home page
 
+	-Dropdown to sort the home page by last response/most replied/most viewed
+
+
+	--When viewing a thread, show user overall post count?
+
+
+	TO VIEW A THREAD
+	1. Click on the thread's name (threadSubject) on Home/any page. The thread's name
+		needs to be a hyperlink that redirects to "Viewing.aspx". It will be ./Viewing/(threadID).
+		That hyperlink will also have to pass (threadID) to the page. "Viewing.aspx" will have
+		to take in the (threadID) to search the database.
+	2. Find ALL records that contain the (threadID) and pull them. You need to INNER JOIN the Posts,
+		Users, and Threads table on [Users](userID) so you can grab the (userName).
+		Sort by (timeCreated) for the posts. Then, from the same record, grab postContent, timeCreated,
+		and userName.
+	3. Put the above into a while loop to continually create <div>'s while there are posts available.
+
+
+
 
 EXTRA INFORMATION
 	--PAGE 442 in bOOK\

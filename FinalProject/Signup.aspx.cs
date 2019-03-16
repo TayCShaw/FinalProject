@@ -26,7 +26,7 @@ namespace FinalProject
         {
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand insert = new SqlCommand("Insert into Users (userID, userName, userPassword, timeCreated) values(@userid, @username, @password, @time)", connection);
-            SqlCommand count = new SqlCommand("Select count(userID) from Users", connection);
+            SqlCommand count = new SqlCommand("Select max(userID) from Users", connection);
             SqlDataReader reader;
 
             if (txtPassword.Text.Equals(txtConfirmPassword.Text))
@@ -97,5 +97,7 @@ namespace FinalProject
                 connection.Close();
             }
         }
+
+
     }
 }

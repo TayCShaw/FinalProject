@@ -20,7 +20,10 @@ namespace FinalProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (IsPostBack && Request.Cookies["Username"] != null)
+            {
+                lblErrorMessages.Text = "SUCK A FAT TOOL, " + Request.Cookies["Username"].Value + ".";
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -48,15 +51,10 @@ namespace FinalProject
                     if (!pass.Equals(reader["userPassword"]))
                     {
                         lblErrorMessages.Text = "Incorrect password";
-
                     }
                     else
                     {
-                        // MAKE A COOKIE, STORE THIS INFORMATION IN A COOKIE
-                        Session["loggedin"] = true;
-                        Session["userID"] = reader["userID"];
-                        
-                        lblErrorMessages.Text = Session["userID"].GetType().ToString();
+                        AddCookie("Username", txtUsername.Text);
                     }
                 }
             }
@@ -68,6 +66,11 @@ namespace FinalProject
             {
                 connection.Close();
             }
+        }
+
+        public void AddCookie(String cookieName, String text)
+        {
+            Response.Cookies.Add(new HttpCookie(cookieName, text));
         }
     }
 }

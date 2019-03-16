@@ -123,6 +123,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Viewing.aspx" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
     <Content Include="Web.sitemap" />
@@ -167,6 +168,13 @@
     </Compile>
     <Compile Include="Posting.aspx.designer.cs">
       <DependentUpon>Posting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Viewing.aspx.cs">
+      <DependentUpon>Viewing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Viewing.aspx.designer.cs">
+      <DependentUpon>Viewing.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

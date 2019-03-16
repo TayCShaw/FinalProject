@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content2" runat="server" contentplaceholderid="ContentPlaceHolder1">
     <div class="div-table">
-        <asp:Table ID="Table1" runat="server" Width="100%" Height="43px" GridLines="Both">
+        <asp:Table ID="tblStatic" runat="server" Width="100%" Height="43px" GridLines="Both">
             <asp:TableHeaderRow HorizontalAlign="Center">
                 <asp:TableHeaderCell Text="Forum" 
                     Scope="Column" 
@@ -38,5 +38,21 @@
         </table>
     </div>
     
+    <asp:Label ID="lblTest" runat="server"></asp:Label>
+    <br />
+    <asp:GridView ID="GridView1" Class="div-table" BorderWidth="2px" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" Width="492px">
+        <Columns>
+            <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
+            <asp:BoundField DataField="Replies" HeaderText="Replies" SortExpression="Replies" />
+            <asp:BoundField DataField="Views" HeaderText="Views" SortExpression="Views" />
+            <asp:BoundField DataField="Creator" HeaderText="Creator" SortExpression="Creator" />
+        </Columns>
+    </asp:GridView>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:UserConnectionString %>" SelectCommand="SELECT Threads.threadSubject AS Subject, Threads.threadReplies AS Replies, Threads.threadViews AS Views, Users.userName AS Creator FROM Threads INNER JOIN Users ON Threads.userID = Users.userID"></asp:SqlDataSource>
+    
 </asp:Content>
+
+<asp:Content ID="Content3" runat="server" contentplaceholderid="head">
+</asp:Content>
+
 
