@@ -3,15 +3,22 @@
 
 TODO
 	-add login / logout
-	-css pages
-	-cascading user name changes
+	------BASICALLY DONE, NOW:
+	---------Store user information in a cookie upon successful login
+	---------Reflect changes on webpages once a person is found to be logged in
 
+	-css pages
+
+	-cascading user name changes
+	-----Maybe leave posts already posted alone if it gets too hard?
+
+	-Add functionality for creatings posts
+	-Add the core topics for the website and add those to the home page
+
+
+EXTRA INFORMATION
 	--PAGE 442 in bOOK\
 	--https://www.codeproject.com/Articles/425150/Beginners-guide-to-a-secure-way-of-storing-passwor
-
-
-	---Make button on sign-up page unclickable on error
-	-?-Check username availability as user types, not when done in box
 
 
 
