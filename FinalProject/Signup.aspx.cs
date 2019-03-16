@@ -13,8 +13,6 @@ namespace FinalProject
     public partial class WebForm2 : System.Web.UI.Page
     {
         private static string connectionString = WebConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;
-        private static string password = "";
-        private static string confirmedPassword = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,27 +22,30 @@ namespace FinalProject
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand("Insert into Users (userName, userPassword) values(@username, @password)", connection);
+            SqlCommand cmd = new SqlCommand("Insert into Users (userID, userName, userPassword, timeCreated) values(@userid, @username, @password, @time)", connection);
+            SqlCommand count = new SqlCommand("Select count(userID) from Users", connection);
             SqlDataReader reader;
 
             if (txtPassword.Text.Equals(txtConfirmPassword.Text))
-            { 
-                lblUsernameError.Text = "SAME PASS";
+            {
+                int newUserID = 0;
+                lblPasswordError.Text = "SAME PASS";
                 try
                 {
                     connection.Open();
+                    newUserID = (Int32)count.ExecuteScalar() + 1;
+
                     string passhash = Security.Sha256(txtPassword.Text);
+                    cmd.Parameters.AddWithValue("@userid", newUserID);
                     cmd.Parameters.AddWithValue("@username", txtUsername.Text);
                     cmd.Parameters.AddWithValue("@password", passhash);
-                    reader = cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@time", DateTime.Now);
 
-
-
-
+                    reader = cmd.ExecuteReader();
                 }
                 catch (Exception er)
                 {
-                    lblPasswordError.Text = er.ToString();
+                    lblErrorMessages.Text = er.ToString();
                 }
                 finally
                 {
@@ -73,11 +74,11 @@ namespace FinalProject
                 {
                     if (txtUsername.Text.Equals(reader["userName"].ToString()))
                     {
-                        lblErrorMessages.Text = "Username already taken, choose another.";
+                        lblUsernameError.Text = "Username already taken, choose another.";
                         return;
                     }
                 }
-                lblErrorMessages.Text = "Username available!";
+                lblUsernameError.Text = "Username available!";
 
             }
             catch(Exception er)
