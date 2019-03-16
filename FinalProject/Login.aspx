@@ -20,12 +20,13 @@
                 <asp:Label ID="lblPassword" runat="server" Text="Password" ></asp:Label>
             </td>
             <td>
-                <input id="inptPassword" type="password" /></td>
+                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+            </td>
         </tr>
         <tr>
             <td class="auto-style5">&nbsp;</td>
             <td>
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" />
+                <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
             </td>
         </tr>
     </table>
