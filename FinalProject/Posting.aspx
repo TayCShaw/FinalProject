@@ -7,11 +7,7 @@
         .auto-style5 {
             height: 26px;
         }
-        .auto-style6 {
-            width: 939px;
-            height: 113px;
-        }
-    </style>
+        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <table class="w-100">
@@ -25,10 +21,11 @@
                 <table class="w-100">
                     <tr>
                         <td class="auto-style4">
-                            <asp:Label ID="lblSubject" runat="server" Text="Label"></asp:Label>
+                            <asp:Label ID="lblSubject" runat="server" Text="Subject"></asp:Label>
                         </td>
                         <td>
                             <asp:TextBox ID="txtSubject" runat="server"></asp:TextBox>
+                            <asp:Label ID="lblErrorMessage" runat="server"></asp:Label>
                         </td>
                     </tr>
                 </table>
@@ -36,11 +33,12 @@
         </tr>
         <tr>
             <td class="auto-style5">
-                <textarea id="txtareaMessage" class="auto-style6" name="S1"></textarea></td>
+                <asp:TextBox ID="txtMessage" runat="server" Height="100px" TextMode="MultiLine" Width="600px"></asp:TextBox>
+            </td>
         </tr>
         <tr>
             <td>
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" />
+                <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
                 <asp:Button ID="btnSaveDraft" runat="server" Text="Save Draft" />
             </td>
         </tr>

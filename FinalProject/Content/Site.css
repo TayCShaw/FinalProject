@@ -30,6 +30,7 @@ header {
     padding: 0 10px;
     margin-bottom: 5px;
     background-position: 100% 0;
+
 }
 
 .postbody{
@@ -40,7 +41,8 @@ header {
 }
 
 .author{
-    margin: 0 15em 0.6em 0;
+    margin: 0;
+    height: 1.2em;
     padding: 0 0 5px 0;
     font-family: Verdana, Arial, Helvetica, Arial, sans-serif;
     font-size: 1em;
@@ -49,6 +51,10 @@ header {
 
 .backgroundcolor-1 {
     background-color: #7c6d80;
+    margin: 10px 30px 10px 30px;
+    border-radius: 10px;
+    border-width: 4px;
+    border-color: blue;
 }
 
 .backgroundcolor-2 {

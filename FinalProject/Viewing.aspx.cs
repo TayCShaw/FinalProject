@@ -23,18 +23,22 @@ namespace FinalProject
                 "FROM Users INNER JOIN Posts ON Users.userID = Posts.userID " +
                 "INNER JOIN Threads on Users.userID = Threads.userID " +
                 "AND Posts.threadID = Threads.threadID " +
-                "WHERE Posts.threadID = 1 ORDER BY timeCreated";
+                "WHERE Posts.threadID = @threadid ORDER BY timeCreated";
 
+            string thredID = Request.QueryString["Subject"];
+            int threadID = 0;
+            Int32.TryParse(thredID, out threadID);
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand threadInformation = new SqlCommand(search, connection);
-            //threadInformation.Parameters.AddWithValue("@threadid", passedInID);
+            threadInformation.Parameters.AddWithValue("@threadid", threadID);
             SqlDataReader reader;
+            //threadInformation.Parameters.AddWithValue("@threadid", );
 
             try
             {
                 connection.Open();
                 reader = threadInformation.ExecuteReader();
-                
+
                 while (reader.Read())
                 {
                     //Grab needed information from record
@@ -42,29 +46,20 @@ namespace FinalProject
                     string dateCreation = reader["timeCreated"].ToString();
                     string userPosted = reader["Username"].ToString();
 
-                    //Put into divs and on page
-                    //Background div, handles page padding and background color
-                    HtmlGenericControl backgroundDiv = new HtmlGenericControl("div");
-                    backgroundDiv.Attributes.Add("class", "post");
-                    backgroundDiv.Attributes.Add("class", "backgroundcolor-1");
-
-                    //Handles the inside content of the actual thread post/reply
-                    HtmlGenericControl innerDiv = new HtmlGenericControl("div");
-
-
-                    //Div for the post/reply text, time posted, etc.
-                    HtmlGenericControl postBody = new HtmlGenericControl("div");
-                    postBody.Attributes.Add("class", "postbody");
-                    HtmlGenericControl authorP = new HtmlGenericControl("p");
-                    authorP.Attributes.Add("class", "author");
-
-                    //Div for the actual post text
                     HtmlGenericControl postText = new HtmlGenericControl("div");
                     postText.InnerHtml = postContent;
 
-                    postBody.Controls.Add(postText);
+                    HtmlGenericControl innerDiv = new HtmlGenericControl("div");
+
+                    HtmlGenericControl authorP = new HtmlGenericControl("p");
+                    authorP.Attributes.Add("class", "author");
+                    authorP.InnerHtml = userPosted + " " + dateCreation;
+
                     innerDiv.Controls.Add(authorP);
-                    innerDiv.Controls.Add(postBody);
+                    innerDiv.Controls.Add(postText);
+
+                    HtmlGenericControl backgroundDiv = new HtmlGenericControl("div");
+                    backgroundDiv.Attributes.Add("class", "post backgroundcolor-1");
                     backgroundDiv.Controls.Add(innerDiv);
 
                     this.Controls.Add(backgroundDiv);

@@ -55,6 +55,7 @@ namespace FinalProject
                     else
                     {
                         AddCookie("Username", txtUsername.Text);
+                        AddCookie("UserID", reader["userID"].ToString());
                     }
                 }
             }

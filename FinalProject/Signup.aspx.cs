@@ -25,7 +25,7 @@ namespace FinalProject
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            SqlCommand insert = new SqlCommand("Insert into Users (userID, userName, userPassword, timeCreated) values(@userid, @username, @password, @time)", connection);
+            SqlCommand insert = new SqlCommand("INSERT into Users (userID, userName, userPassword, timeCreated) values(@userid, @username, @password, @time)", connection);
             SqlCommand count = new SqlCommand("Select max(userID) from Users", connection);
             SqlDataReader reader;
 
