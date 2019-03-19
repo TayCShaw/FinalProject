@@ -19,13 +19,12 @@ namespace FinalProject
         private string connectionString = Security.getConnection();
         protected void Page_Load(object sender, EventArgs e)
         {
-            string search = "SELECT Users.Username, Posts.timeCreated, Posts.postContent " +
-                "FROM Users INNER JOIN Posts ON Users.userID = Posts.userID " +
-                "INNER JOIN Threads on Users.userID = Threads.userID " +
-                "AND Posts.threadID = Threads.threadID " +
-                "WHERE Posts.threadID = @threadid ORDER BY timeCreated";
+            string search = "SELECT distinct Users.userName, Posts.postContent, Posts.timeCreated " +
+                "FROM Users, Posts, Threads " +
+                "WHERE Posts.userID = Users.userID AND Posts.threadID = @threadid";
 
             int threadID = Convert.ToInt32(Request.QueryString["threadID"]);
+            lblErrorMessages.Text = threadID.ToString();
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand threadInformation = new SqlCommand(search, connection);
             threadInformation.Parameters.AddWithValue("@threadid", threadID);
@@ -68,7 +67,7 @@ namespace FinalProject
             }
             finally
             {
-                connection.Close();
+
             }
         }
     }
