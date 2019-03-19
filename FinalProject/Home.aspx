@@ -54,6 +54,8 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:UserConnectionString %>" SelectCommand="SELECT Threads.threadSubject AS Subject, Threads.threadReplies AS Replies, Threads.threadViews AS Views, Threads.threadID, Users.userName AS Creator FROM Threads INNER JOIN Users ON Threads.userID = Users.userID"></asp:SqlDataSource>
     
+    <asp:Button ID="btnNewThread" runat="server" OnClick="btnNewThread_Click" Text="New Thread" />
+    
 </asp:Content>
 
 <asp:Content ID="Content3" runat="server" contentplaceholderid="head">

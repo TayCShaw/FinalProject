@@ -12,62 +12,76 @@ namespace FinalProject
     public partial class Viewing : System.Web.UI.Page
     {
         /*
-         * LEFT OFF AT: FRIENDLY URLS, NEED TO PASS IN THE threadID IN ORDER TO
-         * FIND THE POSTS IN THAT THREAD. 
+         * LEFT OFF AT: FRIENDLY URLS 
          */ 
-        //int passedInID = ;
         private string connectionString = Security.getConnection();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Update Views
+            /* FIRST OFF, BUT IT AT THE BOTTOM OF THE TRY SECTION
+             * 1. Grab the current count of viewCount based off of threadID
+             * 2. Make a statement that says "Update Threads.(viewCount?) to Count + 1"
+             */
+
+
             string search = "SELECT distinct Users.userName, Posts.postContent, Posts.timeCreated " +
                 "FROM Users, Posts, Threads " +
                 "WHERE Posts.userID = Users.userID AND Posts.threadID = @threadid";
 
-            int threadID = Convert.ToInt32(Request.QueryString["threadID"]);
-            lblErrorMessages.Text = threadID.ToString();
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand threadInformation = new SqlCommand(search, connection);
-            threadInformation.Parameters.AddWithValue("@threadid", threadID);
             SqlDataReader reader;
 
-            try
-            {
-                connection.Open();
-                reader = threadInformation.ExecuteReader();
-
-                while (reader.Read())
+            if (!String.IsNullOrEmpty(Request.QueryString["threadID"])) {
+                try
                 {
-                    //Grab needed information from record
-                    string postContent = reader["postContent"].ToString();
-                    string dateCreation = reader["timeCreated"].ToString();
-                    string userPosted = reader["Username"].ToString();
+                    // Grabs the threadID needed for viewing the correct thread
+                    int threadID = Convert.ToInt32(Request.QueryString["threadID"]);
+                    threadInformation.Parameters.AddWithValue("@threadid", threadID);
 
-                    HtmlGenericControl postText = new HtmlGenericControl("div");
-                    postText.InnerHtml = postContent;
+                    // Opens database connection, sends the SELECT command to grab the posts in the thread
+                    connection.Open();
+                    reader = threadInformation.ExecuteReader();
 
-                    HtmlGenericControl innerDiv = new HtmlGenericControl("div");
+                    while (reader.Read())
+                    {
+                        //Grab needed information from record
+                        string postContent = reader["postContent"].ToString();
+                        string dateCreation = reader["timeCreated"].ToString();
+                        string userPosted = reader["Username"].ToString();
 
-                    HtmlGenericControl authorP = new HtmlGenericControl("p");
-                    authorP.Attributes.Add("class", "author");
-                    authorP.InnerHtml = userPosted + " " + dateCreation;
+                        HtmlGenericControl postText = new HtmlGenericControl("div");
+                        postText.InnerHtml = postContent;
 
-                    innerDiv.Controls.Add(authorP);
-                    innerDiv.Controls.Add(postText);
+                        HtmlGenericControl innerDiv = new HtmlGenericControl("div");
 
-                    HtmlGenericControl backgroundDiv = new HtmlGenericControl("div");
-                    backgroundDiv.Attributes.Add("class", "post backgroundcolor-1");
-                    backgroundDiv.Controls.Add(innerDiv);
+                        HtmlGenericControl authorP = new HtmlGenericControl("p");
+                        authorP.Attributes.Add("class", "author");
+                        authorP.InnerHtml = userPosted + " " + dateCreation;
 
-                    this.Controls.Add(backgroundDiv);
+                        innerDiv.Controls.Add(authorP);
+                        innerDiv.Controls.Add(postText);
+
+                        HtmlGenericControl backgroundDiv = new HtmlGenericControl("div");
+                        backgroundDiv.Attributes.Add("class", "post backgroundcolor-1");
+                        backgroundDiv.Controls.Add(innerDiv);
+
+                        this.Controls.Add(backgroundDiv);
+                    }
+                }
+                catch (Exception er)
+                {
+                    lblErrorMessages.Text = er.ToString();
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
-            catch (Exception er)
+            else
             {
-                lblErrorMessages.Text = er.ToString();
-            }
-            finally
-            {
-
+                lblErrorMessages.Text = "ERROR: NO THREAD FOUND OR SELECTED.";
             }
         }
     }

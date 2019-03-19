@@ -21,5 +21,10 @@ namespace FinalProject
             
 
         }
+
+        protected void btnNewThread_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Posting.aspx");
+        }
     }
 }
