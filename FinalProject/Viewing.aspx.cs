@@ -25,14 +25,11 @@ namespace FinalProject
                 "AND Posts.threadID = Threads.threadID " +
                 "WHERE Posts.threadID = @threadid ORDER BY timeCreated";
 
-            string thredID = Request.QueryString["Subject"];
-            int threadID = 0;
-            Int32.TryParse(thredID, out threadID);
+            int threadID = Convert.ToInt32(Request.QueryString["threadID"]);
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand threadInformation = new SqlCommand(search, connection);
             threadInformation.Parameters.AddWithValue("@threadid", threadID);
             SqlDataReader reader;
-            //threadInformation.Parameters.AddWithValue("@threadid", );
 
             try
             {

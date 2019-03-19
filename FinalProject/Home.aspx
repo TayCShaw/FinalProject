@@ -43,8 +43,8 @@
     <asp:GridView ID="GridView1" Class="div-table" BorderWidth="2px" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" Width="492px">
         <Columns>
             <asp:HyperLinkField DataTextField="Subject" 
-                DataNavigateUrlFields="Subject"
-                DataNavigateUrlFormatString="~\Viewing.aspx?threadID={0}"
+                DataNavigateUrlFields="threadID"
+                DataNavigateUrlFormatString= "~\Viewing.aspx?threadID={0}"
                 HeaderText="Subject" 
                 SortExpression="Subject" />
             <asp:BoundField DataField="Replies" HeaderText="Replies" SortExpression="Replies" />
@@ -52,7 +52,7 @@
             <asp:BoundField DataField="Creator" HeaderText="Creator" SortExpression="Creator" />
         </Columns>
     </asp:GridView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:UserConnectionString %>" SelectCommand="SELECT Threads.threadSubject AS Subject, Threads.threadReplies AS Replies, Threads.threadViews AS Views, Users.userName AS Creator FROM Threads INNER JOIN Users ON Threads.userID = Users.userID"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:UserConnectionString %>" SelectCommand="SELECT Threads.threadSubject AS Subject, Threads.threadReplies AS Replies, Threads.threadViews AS Views, Threads.threadID, Users.userName AS Creator FROM Threads INNER JOIN Users ON Threads.userID = Users.userID"></asp:SqlDataSource>
     
 </asp:Content>
 
