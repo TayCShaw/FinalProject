@@ -15,11 +15,13 @@ namespace FinalProject
          * LEFT OFF AT: FRIENDLY URLS 
          */ 
         private string connectionString = Security.getConnection();
+        private int threadID = 0;
+        private string threadName = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // Update Views
-            /* FIRST OFF, BUT IT AT THE BOTTOM OF THE TRY SECTION
+            /* FIRST OFF, PUT IT AT THE BOTTOM OF THE TRY SECTION
              * 1. Grab the current count of viewCount based off of threadID
              * 2. Make a statement that says "Update Threads.(viewCount?) to Count + 1"
              */
@@ -33,11 +35,11 @@ namespace FinalProject
             SqlCommand threadInformation = new SqlCommand(search, connection);
             SqlDataReader reader;
 
-            if (!String.IsNullOrEmpty(Request.QueryString["threadID"])) {
+            //if (!String.IsNullOrEmpty(Request.QueryString["threadID"])) {
                 try
                 {
                     // Grabs the threadID needed for viewing the correct thread
-                    int threadID = Convert.ToInt32(Request.QueryString["threadID"]);
+                    this.threadID = Convert.ToInt32(Request.QueryString["threadID"]);
                     threadInformation.Parameters.AddWithValue("@threadid", threadID);
 
                     // Opens database connection, sends the SELECT command to grab the posts in the thread
@@ -50,7 +52,7 @@ namespace FinalProject
                         string postContent = reader["postContent"].ToString();
                         string dateCreation = reader["timeCreated"].ToString();
                         string userPosted = reader["Username"].ToString();
-
+ //                       threadName = reader["threadSubject"].ToString();
                         HtmlGenericControl postText = new HtmlGenericControl("div");
                         postText.InnerHtml = postContent;
 
@@ -79,10 +81,17 @@ namespace FinalProject
                     connection.Close();
                 }
             }
-            else
-            {
-                lblErrorMessages.Text = "ERROR: NO THREAD FOUND OR SELECTED.";
-            }
+           // else
+           // {
+           //     lblErrorMessages.Text = "ERROR: NO THREAD FOUND OR SELECTED.";
+        
+
+        protected void btnReply_Click(object sender, EventArgs e)
+        {
+            string redirect = "Posting.aspx?pfvers=1&thrpt=" + this.threadID.ToString();
+//            Session["threadName"] = Convert.ToString(threadName);
+            Response.Redirect(redirect);
+
         }
     }
 }

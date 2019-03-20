@@ -11,10 +11,40 @@ namespace FinalProject
     public partial class WebForm4 : System.Web.UI.Page
     {
         public string connectionString = Security.getConnection();
+        bool makingAThread = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // IF USER IS REPLYING TO A THREAD, HIDE THE SUBJECT LABEL AND TEXTBOX, SHOW THE NAME OF THE THREAD
+
+            
+            if (String.IsNullOrEmpty(Request.QueryString["pfvers"]))
+            {
+                //Somehow accessed
+                lblErrorMessage.Text = "ERROR. UNABLE TO FIND THREAD.";
+                btnSubmit.Visible = false;
+            }
+            else if (String.IsNullOrEmpty(Request.Cookies["UserID"].Value))// Keep getting a null error here, but no shit im checking for null dipfuck
+            {
+                lblErrorMessage.Text = "You must be logged in to post.";
+                lblSubject.Visible = false;
+                txtSubject.Visible = false;
+                txtMessage.ReadOnly = true;
+            }
+            else if (Request.QueryString["pfvers"].Equals("1"))
+            {
+                //Replying to a thread
+                lblThreadname.Text = "RE: " + Session["threadName"].ToString();
+                lblSubject.Visible = false;
+                txtSubject.Visible = false;
+
+            }
+            else if (Request.QueryString["pfvers"].Equals("2"))
+            {
+                //Creating a new thread
+                lblThreadname.Text = "New Thread";
+                makingAThread = true;
+            }
 
 
         }
@@ -22,13 +52,18 @@ namespace FinalProject
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             // Variable definitions
-            bool makingAThread = false;
+            
             string insertThreadString = "INSERT into Threads(threadID, threadSubject, timeCreated, userID, threadReplies, threadViews, timeModified) " +
                                     "values (@threadid, @threadsubject, @timecreated, @userid, @threadreplies, @threadviews, @timemodified)";
             string insertPostString = "INSERT into Posts(postID, postContent, timeCreated, threadID, userID) values (@postid, @postcontent, @timecreated, @threadid, @userid)";
 
             //Grab userID from cookie to use in posting
-            string usrID = Request.Cookies["userID"].ToString();
+            if (String.IsNullOrWhiteSpace(Request.Cookies["UserID"].Value))
+            {
+
+            }
+            else { 
+            string usrID = Request.Cookies["UserID"].ToString();
             int userID = 0;
             Int32.TryParse(usrID, out userID);
 
@@ -47,84 +82,84 @@ namespace FinalProject
             int newPostID = 0;
             newPostID = (Int32)maxPost.ExecuteScalar() + 1;
 
-            //Determine if making a thread or making a post/reply
-            if (makingAThread)
-            {
-                int newThreadID = 0;
-                string threadSubject = txtSubject.Text;
-
-
-
-                try
+                //Determine if making a thread or making a post/reply
+                if (makingAThread)
                 {
-                    
-                    // Creating the command to enter post into the Threads table
-                    newThreadID = (Int32)maxThread.ExecuteScalar() + 1; // New threadID
-
-
-                    insertThread.Parameters.AddWithValue("@threadID", newThreadID);
-                    insertThread.Parameters.AddWithValue("@threadsubject", threadSubject);
-                    insertThread.Parameters.AddWithValue("@timecreated", DateTime.Now);
-                    insertThread.Parameters.AddWithValue("@userid", userID);
-                    insertThread.Parameters.AddWithValue("@threadreplies", 0);
-                    insertThread.Parameters.AddWithValue("@threadviews", 0);
-                    insertThread.Parameters.AddWithValue("@timemodified", null);
+                    int newThreadID = 0;
+                    string threadSubject = txtSubject.Text;
 
 
 
+                    try
+                    {
 
-                    insertPost.Parameters.AddWithValue("@postid", newPostID);
-                    insertPost.Parameters.AddWithValue("@postcontent", txtMessage.Text);
-                    insertPost.Parameters.AddWithValue("@timecreated", DateTime.Now);
-                    insertPost.Parameters.AddWithValue("@threadid", newThreadID);
-                    insertPost.Parameters.AddWithValue("@userid", userID);
+                        // Creating the command to enter post into the Threads table
+                        newThreadID = (Int32)maxThread.ExecuteScalar() + 1; // New threadID
 
 
-                    // Open database, attempt to insert into tables
-                    connection.Open();
-                    reader = insertThread.ExecuteReader();
-                    reader = insertPost.ExecuteReader();
-                }
-                catch (Exception er)
-                {
-                    lblErrorMessage.Text = er.ToString();
-                }
-                finally
-                {
-                    connection.Close();
-                }
-                
-            }
-            else // If post is a reply to an already started thread
-            {
-                //Grab a new postID by taking max of threadID column + 1
-                try
-                {
+                        insertThread.Parameters.AddWithValue("@threadID", newThreadID);
+                        insertThread.Parameters.AddWithValue("@threadsubject", threadSubject);
+                        insertThread.Parameters.AddWithValue("@timecreated", DateTime.Now);
+                        insertThread.Parameters.AddWithValue("@userid", userID);
+                        insertThread.Parameters.AddWithValue("@threadreplies", 0);
+                        insertThread.Parameters.AddWithValue("@threadviews", 0);
+                        insertThread.Parameters.AddWithValue("@timemodified", null);
 
-                    //PASS IN THREADID HERE FROM COOKIE (NOT CREATED/IMPLEMENTED YET)
-                    insertPost.Parameters.AddWithValue("@postid", newPostID);
-                    insertPost.Parameters.AddWithValue("@postcontent", txtMessage.Text);
-                    insertPost.Parameters.AddWithValue("@timecreated", DateTime.Now);
-                   // insertPost.Parameters.AddWithValue("@threadid", ); // PASS IN HERE
-                    insertPost.Parameters.AddWithValue("@userid", userID);
-                    
-                    reader = insertPost.ExecuteReader();
 
-                    //Update reply count on the thread
-                    reader = updateReply.ExecuteReader();
 
+
+                        insertPost.Parameters.AddWithValue("@postid", newPostID);
+                        insertPost.Parameters.AddWithValue("@postcontent", txtMessage.Text);
+                        insertPost.Parameters.AddWithValue("@timecreated", DateTime.Now);
+                        insertPost.Parameters.AddWithValue("@threadid", newThreadID);
+                        insertPost.Parameters.AddWithValue("@userid", userID);
+
+
+                        // Open database, attempt to insert into tables
+                        connection.Open();
+                        reader = insertThread.ExecuteReader();
+                        reader = insertPost.ExecuteReader();
+                    }
+                    catch (Exception er)
+                    {
+                        lblErrorMessage.Text = er.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
 
                 }
-                catch (Exception er)
+                else // If post is a reply to an already started thread
                 {
-                    lblErrorMessage.Text = er.ToString();
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                    //Grab a new postID by taking max of threadID column + 1
+                    try
+                    {
 
-                
+                        //PASS IN THREADID HERE FROM COOKIE (NOT CREATED/IMPLEMENTED YET)
+                        insertPost.Parameters.AddWithValue("@postid", newPostID);
+                        insertPost.Parameters.AddWithValue("@postcontent", txtMessage.Text);
+                        insertPost.Parameters.AddWithValue("@timecreated", DateTime.Now);
+                        // insertPost.Parameters.AddWithValue("@threadid", ); // PASS IN HERE
+                        insertPost.Parameters.AddWithValue("@userid", userID);
+
+                        reader = insertPost.ExecuteReader();
+
+                        //Update reply count on the thread
+                        reader = updateReply.ExecuteReader();
+
+
+                    }
+                    catch (Exception er)
+                    {
+                        lblErrorMessage.Text = er.ToString();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+
+                }
             }
         }
     }

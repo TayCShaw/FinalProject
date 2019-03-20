@@ -23,7 +23,7 @@ TODO
 	--Button on the Home screen to make a new thread
 	--Button on the Viewing page to respond to the thread
 
-
+	--Check login, able to log in "taylor" when that user is not in db ("Taylor" is)
 
 
 

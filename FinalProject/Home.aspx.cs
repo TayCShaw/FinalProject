@@ -17,14 +17,13 @@ namespace FinalProject
             {
                 lblTest.Text = Request.Cookies["Username"].Value;
             }
-
-            
-
         }
 
+
+        //Creating a brand new thread, NOT a response to a thread
         protected void btnNewThread_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Posting.aspx");
+            Response.Redirect("Posting.aspx?pfvers=2");
         }
     }
 }
