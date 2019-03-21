@@ -55,7 +55,8 @@ namespace FinalProject
                     else
                     {
                         AddCookie("Username", txtUsername.Text);
-                        AddCookie("UserID", reader["userID"].ToString());
+                        //AddCookie("UserID", reader["userID"]);
+                        Session["UserID"] = reader["userID"];
                     }
                 }
             }

@@ -12,16 +12,17 @@ TODO
 	-cascading user name changes
 	-----Maybe leave posts already posted alone if it gets too hard?
 
-	-Add functionality for creatings posts
+
 	-Add the core topics for the website and add those to the home page
 
 	-Dropdown to sort the home page by last response/most replied/most viewed
 
 
 	--When viewing a thread, show user overall post count?
+	--Update view count on viewing of thread
 
-	--Button on the Home screen to make a new thread
 	--Button on the Viewing page to respond to the thread
+	--Update reply count on replying to thread
 
 	--Check login, able to log in "taylor" when that user is not in db ("Taylor" is)
 

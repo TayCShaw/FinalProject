@@ -24,7 +24,8 @@ namespace FinalProject
                 lblErrorMessage.Text = "ERROR. UNABLE TO FIND THREAD.";
                 btnSubmit.Visible = false;
             }
-            else if (String.IsNullOrEmpty(Request.Cookies["UserID"].Value))// Keep getting a null error here, but no shit im checking for null dipfuck
+            //else if (String.IsNullOrEmpty(Request.Cookies["UserID"].Value))// Keep getting a null error here, but no shit im checking for null dipfuck
+            else if(String.IsNullOrEmpty(Session["UserID"].ToString()))
             {
                 lblErrorMessage.Text = "You must be logged in to post.";
                 lblSubject.Visible = false;
@@ -58,30 +59,41 @@ namespace FinalProject
             string insertPostString = "INSERT into Posts(postID, postContent, timeCreated, threadID, userID) values (@postid, @postcontent, @timecreated, @threadid, @userid)";
 
             //Grab userID from cookie to use in posting
-            if (String.IsNullOrWhiteSpace(Request.Cookies["UserID"].Value))
+            //if (String.IsNullOrWhiteSpace(Request.Cookies["UserID"].Value))
+            if(String.IsNullOrEmpty(Session["UserID"].ToString()))
             {
-
+                lblSubject.Text = "shits fucked";
             }
-            else { 
-            string usrID = Request.Cookies["UserID"].ToString();
-            int userID = 0;
-            Int32.TryParse(usrID, out userID);
+            else
+            {
+                //string usrID = Request.Cookies["UserID"].ToString();
+                string usrID = Session["UserID"].ToString() ;
+                int userID = 0;
+                if(!Int32.TryParse(usrID, out userID))
+                {
+                    lblThreadname.Text = "ERROR CONVERTING USERID TO INT";
+                }
+                else
+                {
+                    lblSubject.Text = userID.ToString();
+                }
 
 
-            // SQL Defintions
-            SqlConnection connection = new SqlConnection(connectionString);
-            SqlDataReader reader;
-            SqlCommand insertThread = new SqlCommand(insertThreadString, connection);
-            SqlCommand insertPost = new SqlCommand(insertThreadString, connection);
-            SqlCommand maxThread = new SqlCommand("SELECT max(threadID) from Threads", connection);
-            SqlCommand maxPost = new SqlCommand("SELECT max(postID) from Posts", connection);
-            SqlCommand updateReply = new SqlCommand("UPDATE Threads SET threadReplies = threadReplies + 1 WHERE threadID = @threadid",connection);
+                // SQL Defintions
+                SqlConnection connection = new SqlConnection(connectionString);
+                SqlDataReader reader;
+                SqlDataReader reader2;
+                SqlCommand insertThread = new SqlCommand(insertThreadString, connection);
+                SqlCommand insertPost = new SqlCommand(insertPostString, connection);
+                SqlCommand maxThread = new SqlCommand("SELECT max(threadID) from Threads", connection);
+                SqlCommand maxPost = new SqlCommand("SELECT max(postID) from Posts", connection);
+                SqlCommand updateReply = new SqlCommand("UPDATE Threads SET threadReplies = threadReplies + 1 WHERE threadID = @threadid",connection);
 
-
+                connection.Open();
             // Creating the command to enter post into the Posts table
-            int newPostID = 0;
-            newPostID = (Int32)maxPost.ExecuteScalar() + 1;
-
+                int newPostID = 0;
+                newPostID = (Int32)maxPost.ExecuteScalar() + 1;
+                connection.Close();
                 //Determine if making a thread or making a post/reply
                 if (makingAThread)
                 {
@@ -92,10 +104,10 @@ namespace FinalProject
 
                     try
                     {
-
+                        connection.Open();
                         // Creating the command to enter post into the Threads table
                         newThreadID = (Int32)maxThread.ExecuteScalar() + 1; // New threadID
-
+                        connection.Close();
 
                         insertThread.Parameters.AddWithValue("@threadID", newThreadID);
                         insertThread.Parameters.AddWithValue("@threadsubject", threadSubject);
@@ -103,7 +115,7 @@ namespace FinalProject
                         insertThread.Parameters.AddWithValue("@userid", userID);
                         insertThread.Parameters.AddWithValue("@threadreplies", 0);
                         insertThread.Parameters.AddWithValue("@threadviews", 0);
-                        insertThread.Parameters.AddWithValue("@timemodified", null);
+                        insertThread.Parameters.AddWithValue("@timemodified", DateTime.Now);
 
 
 
@@ -117,8 +129,10 @@ namespace FinalProject
 
                         // Open database, attempt to insert into tables
                         connection.Open();
-                        reader = insertThread.ExecuteReader();
-                        reader = insertPost.ExecuteReader();
+                        reader = insertThread.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                        reader.Close();
+                        connection.Open();
+                        reader2 = insertPost.ExecuteReader();
                     }
                     catch (Exception er)
                     {
@@ -152,7 +166,7 @@ namespace FinalProject
                     }
                     catch (Exception er)
                     {
-                        lblErrorMessage.Text = er.ToString();
+                        lblErrorMessage.Text = userID.ToString() + " " + er.ToString();
                     }
                     finally
                     {
