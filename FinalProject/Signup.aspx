@@ -29,6 +29,7 @@
             </td>
             <td class="auto-style5">
                 <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+                <asp:CompareValidator ID="validPasswords" runat="server" ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ErrorMessage="Passwords do not match!"></asp:CompareValidator>
             </td>
         </tr>
         <tr>

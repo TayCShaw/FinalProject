@@ -24,20 +24,29 @@ namespace FinalProject
                 lblErrorMessage.Text = "ERROR. UNABLE TO FIND THREAD.";
                 btnSubmit.Visible = false;
             }
-            //else if (String.IsNullOrEmpty(Request.Cookies["UserID"].Value))// Keep getting a null error here, but no shit im checking for null dipfuck
-            else if(String.IsNullOrEmpty(Session["UserID"].ToString()))
+            else if(HttpContext.Current.Session["UserID"] == null)
             {
                 lblErrorMessage.Text = "You must be logged in to post.";
                 lblSubject.Visible = false;
                 txtSubject.Visible = false;
                 txtMessage.ReadOnly = true;
+                btnSubmit.Text = "Sign in";
+                btnSubmit.PostBackUrl = "~/Login.aspx";
+
             }
             else if (Request.QueryString["pfvers"].Equals("1"))
             {
                 //Replying to a thread
-                lblThreadname.Text = "RE: " + Session["threadName"].ToString();
-                lblSubject.Visible = false;
-                txtSubject.Visible = false;
+                if (HttpContext.Current.Session["threadName"] != null)
+                {
+                    lblThreadname.Text = "RE: " + Session["threadName"].ToString();
+                    lblSubject.Visible = false;
+                    txtSubject.Visible = false;
+                }
+                else
+                {
+                    lblErrorMessage.Text = "shit's fucked yo.";
+                }
 
             }
             else if (Request.QueryString["pfvers"].Equals("2"))
@@ -58,15 +67,12 @@ namespace FinalProject
                                     "values (@threadid, @threadsubject, @timecreated, @userid, @threadreplies, @threadviews, @timemodified)";
             string insertPostString = "INSERT into Posts(postID, postContent, timeCreated, threadID, userID) values (@postid, @postcontent, @timecreated, @threadid, @userid)";
 
-            //Grab userID from cookie to use in posting
-            //if (String.IsNullOrWhiteSpace(Request.Cookies["UserID"].Value))
-            if(String.IsNullOrEmpty(Session["UserID"].ToString()))
+            if(HttpContext.Current.Session["UserID"] == null)
             {
-                lblSubject.Text = "shits fucked";
+                lblSubject.Text = "You must login to post a reply.";
             }
             else
             {
-                //string usrID = Request.Cookies["UserID"].ToString();
                 string usrID = Session["UserID"].ToString() ;
                 int userID = 0;
                 if(!Int32.TryParse(usrID, out userID))
@@ -100,8 +106,6 @@ namespace FinalProject
                     int newThreadID = 0;
                     string threadSubject = txtSubject.Text;
 
-
-
                     try
                     {
                         connection.Open();
@@ -133,6 +137,7 @@ namespace FinalProject
                         reader.Close();
                         connection.Open();
                         reader2 = insertPost.ExecuteReader();
+                        Response.Redirect(string.Format("~/Viewing.aspx?threadID={0}",newThreadID));
                     }
                     catch (Exception er)
                     {
@@ -150,18 +155,22 @@ namespace FinalProject
                     try
                     {
 
-                        //PASS IN THREADID HERE FROM COOKIE (NOT CREATED/IMPLEMENTED YET)
+                        connection.Open();
                         insertPost.Parameters.AddWithValue("@postid", newPostID);
                         insertPost.Parameters.AddWithValue("@postcontent", txtMessage.Text);
                         insertPost.Parameters.AddWithValue("@timecreated", DateTime.Now);
-                        // insertPost.Parameters.AddWithValue("@threadid", ); // PASS IN HERE
+                        insertPost.Parameters.AddWithValue("@threadid", Request.QueryString["thrpt"]);
                         insertPost.Parameters.AddWithValue("@userid", userID);
 
-                        reader = insertPost.ExecuteReader();
+                        updateReply.Parameters.AddWithValue("@threadid", Request.QueryString["thrpt"]);
 
+                        reader = insertPost.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                        reader.Close();
+
+                        connection.Open();
                         //Update reply count on the thread
                         reader = updateReply.ExecuteReader();
-
+                        Response.Redirect(string.Format("~/Viewing.aspx?threadID={0}", Request.QueryString["thrpt"]));
 
                     }
                     catch (Exception er)

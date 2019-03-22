@@ -39,7 +39,6 @@
         <tr>
             <td>
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
-                <asp:Button ID="btnSaveDraft" runat="server" Text="Save Draft" />
             </td>
         </tr>
     </table>

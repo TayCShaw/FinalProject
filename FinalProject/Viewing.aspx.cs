@@ -11,9 +11,6 @@ namespace FinalProject
 {
     public partial class Viewing : System.Web.UI.Page
     {
-        /*
-         * LEFT OFF AT: FRIENDLY URLS 
-         */ 
         private string connectionString = Security.getConnection();
         private int threadID = 0;
         private string threadName = "";
@@ -25,17 +22,17 @@ namespace FinalProject
              * 1. Grab the current count of viewCount based off of threadID
              * 2. Make a statement that says "Update Threads.(viewCount?) to Count + 1"
              */
+            string updateViews = "UPDATE Threads SET threadViews = @threadviews WHERE threadID = @threadID";
 
-
-            string search = "SELECT distinct Users.userName, Posts.postContent, Posts.timeCreated " +
-                "FROM Users, Posts, Threads " +
-                "WHERE Posts.userID = Users.userID AND Posts.threadID = @threadid";
+            string search = "SELECT DISTINCT Users.userName, Posts.postContent, Posts.timeCreated, Threads.threadSubject, Threads.threadViews " +
+                "FROM Posts INNER JOIN Threads ON Posts.threadID = Threads.threadID INNER JOIN Users ON Posts.userID = Users.userID AND Posts.threadID = @threadid " +
+                "ORDER BY Posts.timeCreated ASC";
 
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand threadInformation = new SqlCommand(search, connection);
+            SqlCommand viewInformation = new SqlCommand(updateViews, connection);
             SqlDataReader reader;
 
-            //if (!String.IsNullOrEmpty(Request.QueryString["threadID"])) {
                 try
                 {
                     // Grabs the threadID needed for viewing the correct thread
@@ -44,15 +41,18 @@ namespace FinalProject
 
                     // Opens database connection, sends the SELECT command to grab the posts in the thread
                     connection.Open();
-                    reader = threadInformation.ExecuteReader();
-
+                    reader = threadInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                int threadViews = 0;
                     while (reader.Read())
                     {
                         //Grab needed information from record
                         string postContent = reader["postContent"].ToString();
                         string dateCreation = reader["timeCreated"].ToString();
                         string userPosted = reader["Username"].ToString();
- //                       threadName = reader["threadSubject"].ToString();
+                        Int32.TryParse(reader["threadViews"].ToString(), out threadViews);
+                        
+
+                    threadName = reader["threadSubject"].ToString();
                         HtmlGenericControl postText = new HtmlGenericControl("div");
                         postText.InnerHtml = postContent;
 
@@ -70,7 +70,23 @@ namespace FinalProject
                         backgroundDiv.Controls.Add(innerDiv);
 
                         this.Controls.Add(backgroundDiv);
+
+
                     }
+                if (!IsPostBack)
+                {
+                    threadViews += 1;
+                }
+
+
+
+                viewInformation.Parameters.AddWithValue("@threadviews", threadViews);
+                    viewInformation.Parameters.AddWithValue("@threadid", threadID);
+                    reader.Close();
+                    connection.Open();
+                    reader = viewInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+                    
                 }
                 catch (Exception er)
                 {
@@ -89,7 +105,7 @@ namespace FinalProject
         protected void btnReply_Click(object sender, EventArgs e)
         {
             string redirect = "Posting.aspx?pfvers=1&thrpt=" + this.threadID.ToString();
-//            Session["threadName"] = Convert.ToString(threadName);
+            Session["threadName"] = threadName;
             Response.Redirect(redirect);
 
         }

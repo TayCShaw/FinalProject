@@ -2,29 +2,43 @@
 
 
 TODO
-	-add login / logout
-	------BASICALLY DONE, NOW:
-	---------Store user information in a cookie upon successful login
-	---------Reflect changes on webpages once a person is found to be logged in
-
-	-css pages
-
-	-cascading user name changes
-	-----Maybe leave posts already posted alone if it gets too hard?
-
-
-	-Add the core topics for the website and add those to the home page
-
-	-Dropdown to sort the home page by last response/most replied/most viewed
+	
+	NEED TO GET DONE
+	----------------
+	--css pages
+	--Implement server and code security
+	--Change button text/functionality when a user is logged in
+	--Figure out how to add a cookie or two in somewhere along with session state
+	--NavBar
+	--IN PROGRESS: Make a cookie (elsewhere, maybe on the login page, or home page, or registration, something) that will be able to store
+	  settings for changing button text. When a user is logged in, change the setting of that cookie to the new text and redirect links
+	  that the buttons to display/redirect to.
 
 
-	--When viewing a thread, show user overall post count?
-	--Update view count on viewing of thread
+	THREADS AND REPLIES
+	----------------------------------------------------
+	--When viewing a thread, show user overall post count? (the right side of the post box thing)
+	--When viewing a thread, at the top of the page show the thread subject
+	--In Viewing.aspx, try to put the button at the bottom of the page below all the replies
+	--Allow for edits in posts (SQL statements to pull the content, push it into the textarea on "Posting.aspx", and allow the user to resend it. Still sort it by the initial time created,
+	  but show the last time modified on the post somewhere?)
+	--Allow for deleting/purging of posts, threads, users. If you wanted to delete a user, FIRST delete all posts they made, SECOND find all threads they made and delete those posts then delete
+	  that thread (in that order otherwise database throws a fit), THIRD delete the user
+	----For deleting a post, just remove that post from the posts database
+	----For deleting a thread, remove the posts that have the threadID = threadID THEN remove the thread from the Threads.DB
 
-	--Button on the Viewing page to respond to the thread
-	--Update reply count on replying to thread
 
-	--Check login, able to log in "taylor" when that user is not in db ("Taylor" is)
+	LOGIN
+	---------------------------------------------------
+	--Change button text/functionality when a user is logged in
+	--SIGN OUT FEATURE (would just be clearing cookies/session data)
+	-?-Usernames not case sensitive
+	--Change SessionState object to cookie, will need to change resulting code in other classes
+
+
+	LOGIN AND REDIRECT
+	---------------------------------------------------
+	--Once sign up is complete, automatically log the user in, redirect to home page
 
 
 

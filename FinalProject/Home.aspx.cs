@@ -13,9 +13,12 @@ namespace FinalProject
         private string connectionString = Security.getConnection();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Cookies["Username"] != null)
+            if (Session["Username"] != null)
             {
-                lblTest.Text = Request.Cookies["Username"].Value;
+                lblTest.Text = "Welcome, " + Session["Username"].ToString();
+
+                //Change Signin and Signup buttons to something else
+                
             }
         }
 

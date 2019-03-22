@@ -54,9 +54,9 @@ namespace FinalProject
                     }
                     else
                     {
-                        AddCookie("Username", txtUsername.Text);
-                        //AddCookie("UserID", reader["userID"]);
+                        Session["Username"] = reader["userName"];
                         Session["UserID"] = reader["userID"];
+                        Response.Redirect("~/Home.aspx");
                     }
                 }
             }

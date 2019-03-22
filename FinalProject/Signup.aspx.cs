@@ -45,6 +45,8 @@ namespace FinalProject
                     insert.Parameters.AddWithValue("@time", DateTime.Now);
 
                     reader = insert.ExecuteReader();
+                    Session["Username"] = txtUsername.Text;
+                    Session["UserID"] = newUserID;
                     Response.Redirect("Home.aspx");
                 }
                 catch (Exception er)
