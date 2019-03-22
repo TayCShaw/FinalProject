@@ -17,11 +17,6 @@ namespace FinalProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Update Views
-            /* FIRST OFF, PUT IT AT THE BOTTOM OF THE TRY SECTION
-             * 1. Grab the current count of viewCount based off of threadID
-             * 2. Make a statement that says "Update Threads.(viewCount?) to Count + 1"
-             */
             string updateViews = "UPDATE Threads SET threadViews = @threadviews WHERE threadID = @threadID";
 
             string search = "SELECT DISTINCT Users.userName, Posts.postContent, Posts.timeCreated, Threads.threadSubject, Threads.threadViews " +
@@ -33,15 +28,15 @@ namespace FinalProject
             SqlCommand viewInformation = new SqlCommand(updateViews, connection);
             SqlDataReader reader;
 
-                try
-                {
-                    // Grabs the threadID needed for viewing the correct thread
-                    this.threadID = Convert.ToInt32(Request.QueryString["threadID"]);
-                    threadInformation.Parameters.AddWithValue("@threadid", threadID);
+            try
+            {
+                // Grabs the threadID needed for viewing the correct thread
+                this.threadID = Convert.ToInt32(Request.QueryString["threadID"]);
+                threadInformation.Parameters.AddWithValue("@threadid", threadID);
 
-                    // Opens database connection, sends the SELECT command to grab the posts in the thread
-                    connection.Open();
-                    reader = threadInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                // Opens database connection, sends the SELECT command to grab the posts in the thread
+                connection.Open();
+                reader = threadInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
                 int threadViews = 0;
                     while (reader.Read())
                     {
@@ -52,7 +47,8 @@ namespace FinalProject
                         Int32.TryParse(reader["threadViews"].ToString(), out threadViews);
                         
 
-                    threadName = reader["threadSubject"].ToString();
+                        threadName = reader["threadSubject"].ToString();
+                        lblThreadName.Text = threadName;
                         HtmlGenericControl postText = new HtmlGenericControl("div");
                         postText.InnerHtml = postContent;
 
@@ -69,24 +65,25 @@ namespace FinalProject
                         backgroundDiv.Attributes.Add("class", "post backgroundcolor-1");
                         backgroundDiv.Controls.Add(innerDiv);
 
-                        this.Controls.Add(backgroundDiv);
+                        Form.Controls.Add(backgroundDiv);
 
 
                     }
-                if (!IsPostBack)
-                {
-                    threadViews += 1;
-                }
+                    Button replyButton = new Button();
+                    replyButton.Text = "Reply";
+                    replyButton.Click += new EventHandler(btnReply_Click);
+                    Form.Controls.Add(replyButton);
 
+                    if (!IsPostBack)
+                    {
+                        threadViews += 1;
+                    }
 
-
-                viewInformation.Parameters.AddWithValue("@threadviews", threadViews);
+                    viewInformation.Parameters.AddWithValue("@threadviews", threadViews);
                     viewInformation.Parameters.AddWithValue("@threadid", threadID);
                     reader.Close();
                     connection.Open();
-                    reader = viewInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
-
-                    
+                    reader = viewInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);   
                 }
                 catch (Exception er)
                 {
@@ -97,9 +94,6 @@ namespace FinalProject
                     connection.Close();
                 }
             }
-           // else
-           // {
-           //     lblErrorMessages.Text = "ERROR: NO THREAD FOUND OR SELECTED.";
         
 
         protected void btnReply_Click(object sender, EventArgs e)

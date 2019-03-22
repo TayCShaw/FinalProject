@@ -46,13 +46,13 @@
                 DataNavigateUrlFormatString= "~\Viewing.aspx?threadID={0}"
                 HeaderText="Subject" 
                 SortExpression="Subject" />
-            <asp:BoundField DataField="Replies" HeaderText="Replies" HeaderStyle-HorizontalAlign="Center" SortExpression="Replies" >
+            <asp:BoundField DataField="Replies" HeaderText="Replies" SortExpression="Replies" >
                 <ItemStyle HorizontalAlign="Center" />
             </asp:Boundfield>
-            <asp:BoundField DataField="Views" HeaderText="Views" HeaderStyle-HorizontalAlign="Center" SortExpression="Views" >
+            <asp:BoundField DataField="Views" HeaderText="Views" SortExpression="Views" >
                 <ItemStyle HorizontalAlign="Center" />
             </asp:Boundfield>
-            <asp:BoundField DataField="Creator" HeaderText="Creator" HeaderStyle-HorizontalAlign="Center" SortExpression="Creator" >
+            <asp:BoundField DataField="Creator" HeaderText="Creator" SortExpression="Creator" >
                 <ItemStyle HorizontalAlign="Center" />
             </asp:Boundfield>
         </Columns>

@@ -11,45 +11,38 @@ namespace FinalProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //check for cookie if exzists use the values if not ignore this
-            if (!IsPostBack)
+            if (Session["Username"] != null)
             {
-
+                btnLogin.Text = "Logout";
+                btnSignup.Visible = false;
+            }
+            else
+            {
+                btnLogin.Text = "Login";
+                btnSignup.Visible = true;
             }
         }
-
+    
         protected void btnSignup_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Signup.aspx");
+
+            Response.Redirect("~/Signup.aspx");
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Login.aspx");
-        }
-
-        public void setBtnLogin(string state)
-        {
-            // check if cookie is made
-            //update the cookie values
-            if (Response.Cookies["buttonText"] != null)
+            if (Session["Username"] != null)
             {
-                if (state.Equals("logout"))
-                {
-                    btnLogin.Text = Response.Cookies["ButtonText"]["outtext"];
-                    btnLogin.PostBackUrl = Response.Cookies["ButtonText"]["outredirect"];
-                }
-                else
-                {
+                Session["Username"] = null;
+                Session["UserID"] = null;
+                Response.Redirect("Home.aspx");
 
-                    //btnLogin.Text = buttonText;
-                    //btnLogin.PostBackUrl = redirect;
-                }
             }
-
-
-            // if not make cookie set values
-
+            else
+            {
+                Response.Redirect("~/Login.aspx");
+            }
         }
+        
     }
 }

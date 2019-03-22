@@ -18,10 +18,11 @@ namespace FinalProject
             if (Session["Username"] != null)
             {
                 lblTest.Text = "Welcome, " + Session["Username"].ToString();
-
-                //Change Signin and Signup buttons to something else
-                Master.setBtnLogin("logout");
-
+                lblTest.Visible = true;
+            }
+            else
+            {
+                lblTest.Text = "";
             }
 
         }

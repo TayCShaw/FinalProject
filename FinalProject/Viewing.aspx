@@ -4,5 +4,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
     <asp:Label ID="lblErrorMessages" runat="server"></asp:Label>
-    <asp:Button ID="btnReply" runat="server" OnClick="btnReply_Click" Text="Reply" />
+    <br />
+    <asp:Label ID="lblThreadName" runat="server" Font-Bold="True" Font-Italic="True" Font-Size="XX-Large" ForeColor="Black"></asp:Label>
+    <br />
+    <%--<asp:Button ID="btnReply" runat="server" OnClick="btnReply_Click" Text="Reply" /> --%>
 </asp:Content>
