@@ -68,6 +68,20 @@ namespace FinalProject
             {
                 connection.Close();
             }
+
+            if (Request.Cookies["ButtonText"] == null)
+            {
+                HttpCookie buttonText = new HttpCookie("ButtonText");
+                Response.Cookies.Add(buttonText);
+                buttonText.Values.Add("outtext", "Logout");
+                buttonText.Values.Add("outredirect", "~/Home.aspx");
+                //buttonText.Values.Add("intext", "Login");
+                //buttonText.Values.Add("inredirect", "~/Login.aspx");
+            }
+            else
+            {
+                //nothing
+            }
         }
 
         public void AddCookie(String cookieName, String text)

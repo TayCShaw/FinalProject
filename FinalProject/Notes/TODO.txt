@@ -9,7 +9,6 @@ TODO
 	--Implement server and code security
 	--Change button text/functionality when a user is logged in
 	--Figure out how to add a cookie or two in somewhere along with session state
-	--NavBar
 	--IN PROGRESS: Make a cookie (elsewhere, maybe on the login page, or home page, or registration, something) that will be able to store
 	  settings for changing button text. When a user is logged in, change the setting of that cookie to the new text and redirect links
 	  that the buttons to display/redirect to.

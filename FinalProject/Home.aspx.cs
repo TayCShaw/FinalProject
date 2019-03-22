@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,6 +11,7 @@ namespace FinalProject
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+
         private string connectionString = Security.getConnection();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,8 +20,10 @@ namespace FinalProject
                 lblTest.Text = "Welcome, " + Session["Username"].ToString();
 
                 //Change Signin and Signup buttons to something else
-                
+                Master.setBtnLogin("logout");
+
             }
+
         }
 
 

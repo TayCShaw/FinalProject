@@ -13,15 +13,6 @@ namespace FinalProject {
     public partial class WebForm1 {
         
         /// <summary>
-        /// tblStatic control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tblStatic;
-        
-        /// <summary>
         /// lblTest control.
         /// </summary>
         /// <remarks>
@@ -56,5 +47,17 @@ namespace FinalProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNewThread;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new FinalProject.Site1 Master {
+            get {
+                return ((FinalProject.Site1)(base.Master));
+            }
+        }
     }
 }

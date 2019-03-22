@@ -14,8 +14,7 @@ namespace FinalProject
             //check for cookie if exzists use the values if not ignore this
             if (!IsPostBack)
             {
-                HttpCookie buttonText = new HttpCookie("ButtonText");
-                Response.Cookies.Add(buttonText);
+
             }
         }
 
@@ -29,21 +28,25 @@ namespace FinalProject
             Response.Redirect("Login.aspx");
         }
 
-        public void setBtnLogin(string buttonText, string redirect)
+        public void setBtnLogin(string state)
         {
             // check if cookie is made
-                //update the cookie values
-            if (string.Compare(redirect, "default", true) == 1)
+            //update the cookie values
+            if (Response.Cookies["buttonText"] != null)
             {
-                btnLogin.Text = "Login";
-                btnLogin.PostBackUrl = "~/Login.aspx";
+                if (state.Equals("logout"))
+                {
+                    btnLogin.Text = Response.Cookies["ButtonText"]["outtext"];
+                    btnLogin.PostBackUrl = Response.Cookies["ButtonText"]["outredirect"];
+                }
+                else
+                {
+
+                    //btnLogin.Text = buttonText;
+                    //btnLogin.PostBackUrl = redirect;
+                }
             }
-            else
-            {
-                
-                btnLogin.Text = buttonText;
-                btnLogin.PostBackUrl = redirect;
-            }
+
 
             // if not make cookie set values
 
