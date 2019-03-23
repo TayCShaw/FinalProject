@@ -15,47 +15,47 @@
 
     <table class="w-100">
         <tr>
-            <td class="auto-style6"> 
-                <asp:Label ID="lblUsername" runat="server" Text="Username"></asp:Label>
+            <td class="loginTable" style="text-align: right"> 
+                <asp:Label ID="lblUsername" runat="server" class="signuplbl" Text="Username"></asp:Label>
             </td>
-            <td class="auto-style7">
-                <asp:TextBox ID="txtUsername" runat="server" AutoPostBack="True" OnTextChanged="txtUsername_TextChanged"></asp:TextBox>
+            <td class="loginTable">
+                <asp:TextBox ID="txtUsername" runat="server" AutoPostBack="True" class="loginTb" OnTextChanged="txtUsername_TextChanged"></asp:TextBox>
                 <asp:Label ID="lblUsernameError" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td class="auto-style4">
-                <asp:Label ID="lblPassword" runat="server" Text="Password"></asp:Label>
+            <td class="loginTable" style="text-align: right">
+                <asp:Label ID="lblPassword" runat="server" class="signuplbl" Text="Password"></asp:Label>
             </td>
-            <td class="auto-style5">
-                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+            <td class="loginTable">
+                <asp:TextBox ID="txtPassword" runat="server" class="loginTb" TextMode="Password"></asp:TextBox>
                 <asp:CompareValidator ID="validPasswords" runat="server" ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ErrorMessage="Passwords do not match!"></asp:CompareValidator>
             </td>
         </tr>
         <tr>
-            <td class="auto-style4">
-                <asp:Label ID="lblConfirmPassword" runat="server" Text="Confirm Password"></asp:Label>
+            <td class="loginTable" style="text-align: right">
+                <asp:Label ID="lblConfirmPassword" runat="server" class="signuplbl" Text="Confirm Password"></asp:Label>
             </td>
-            <td class="auto-style5">
-                <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password"></asp:TextBox>
+            <td class="loginTable">
+                <asp:TextBox ID="txtConfirmPassword" runat="server" class="loginTb" TextMode="Password"></asp:TextBox>
                 <asp:Label ID="lblPasswordError" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td class="auto-style4">&nbsp;</td>
-            <td class="auto-style5">
-                <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" CausesValidation="False" />
+            <td class="loginTable">&nbsp;</td>
+            <td class="loginTable">
+                <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" Class="loginBtn" CausesValidation="False" />
             </td>
         </tr>
         <tr>
-            <td class="auto-style4">
+            <td class="loginTable">
                 <asp:Label ID="lblErrorMessages" runat="server"></asp:Label>
             </td>
-            <td class="auto-style5">&nbsp;</td>
+            <td class="loginTable">&nbsp;</td>
         </tr>
         <tr>
-            <td class="auto-style4">&nbsp;</td>
-            <td class="auto-style5">
+            <td class="loginTable">&nbsp;</td>
+            <td class="loginTable">
                 &nbsp;</td>
         </tr>
     </table>

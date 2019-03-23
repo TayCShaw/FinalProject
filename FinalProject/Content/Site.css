@@ -55,13 +55,37 @@ header {
 }
 
 .backgroundcolor-1 {
-    background-color: #7c6d80;
+    background-color: #C8C8C8;
     margin: 10px 30px 10px 30px;
     border-radius: 10px;
     border-width: 4px;
     border-color: blue;
 }
 
-.backgroundcolor-2 {
-    background-color: #e9e6df;
+.loginTable {
+    height: 45px;
+    width: 20%;
+}
+
+.loginTb {
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #6a0032;
+}
+
+.loginBtn {
+    border-radius: 10px;
+    background-color: #6a0032;
+    color:white;
+}
+
+.loginlbl {
+    color: #6a0032;
+    padding-right: 4px;
+}
+
+.signuplbl {
+    color: #6a0032;
+    padding-right: 4px;
+    
 }

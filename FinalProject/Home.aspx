@@ -38,7 +38,7 @@
     
     <asp:Label ID="lblTest" runat="server"></asp:Label>
     <br />
-    <div class="div-padding">
+    <div class="div-padding" >
         <asp:GridView ID="GridView1" CssClass="div-table" BorderWidth="2px" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" HorizontalAlign="Center">
         <Columns>
             <asp:HyperLinkField DataTextField="Subject" 
@@ -62,7 +62,7 @@
     
     <br />
     
-    <asp:Button ID="btnNewThread" runat="server" OnClick="btnNewThread_Click" Text="New Thread" />
+    <asp:Button ID="btnNewThread" runat="server" OnClick="btnNewThread_Click" Class="loginBtn" Text="New Thread" />
     
 </asp:Content>
 

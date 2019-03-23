@@ -70,6 +70,7 @@ namespace FinalProject
 
                     }
                     Button replyButton = new Button();
+                    replyButton.Attributes.Add("class", "loginBtn");
                     replyButton.Text = "Reply";
                     replyButton.Click += new EventHandler(btnReply_Click);
                     Form.Controls.Add(replyButton);
