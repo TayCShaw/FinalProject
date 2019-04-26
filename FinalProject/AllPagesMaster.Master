@@ -4,67 +4,42 @@
 
 <html>
 <head runat="server">
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-            height: 466px;
-        }
-        .auto-style2 {
-            height: 113px;
-        }
         .auto-style3 {
-            width: 100%;
-            height: 33px;
-            margin-top: 0px;
-        }
-        .auto-style4 {
-            height: 140px;
-        }
-        .auto-style5 {
-            height: 30px;
-        }
-        .auto-style6 {
-            height: 144px;
-        }
-        .auto-style7 {
-            height: 31px;
+            height: 126px;
         }
     </style>
 </head>
+<%-- 
+    MAROON COLOR HEX: #6A0032
+    GOLD COLOR HEX: #FFC82E
+
+    TO-DO
+    ++Div tag for image, add padding to make header have space aroudn image?
+    --%>
 <body>
     <form id="form1" runat="server">
-        <div>
-                <table class="auto-style1">
-                    <tr>
-                        <td class="auto-style2">
-                            <asp:Image ID="Image2" runat="server" Height="81px" ImageUrl="https://static1.squarespace.com/static/543d4310e4b0aad95e6f05cb/t/598add2d1e5b6cbabca1e6f5/1502274166590/" Width="153px" />
-                            HEADER</td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style5">
-                            <asp:SiteMapPath ID="SiteMapPath1" runat="server">
-                            </asp:SiteMapPath>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style4">
-                            <table class="auto-style3">
-                                <tr>
-                                    <td class="auto-style6">WHATEVER THE PAGE IS SUPPOSED TO BE ABOUT<br />
-                                        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
-                                        </asp:ContentPlaceHolder>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="auto-style7">FOOTSIES</td>
-                    </tr>
-                </table>
+        <div class="div-main">
+            <header class="auto-style3">
+                <asp:Image ID="Image2" runat="server" Height="130px" ImageUrl="http://pngimg.com/uploads/dragon/dragon_PNG996.png" Width="172px" />
+                <asp:button runat="server" CssClass="button" Text="Sign Up" 
+                    BackColor="#FFC82E"
+                    ForeColor="#6A0032" ID="btnSignup" OnClick="btnSignup_Click"/>
+                <asp:button runat="server" CssClass="button" Text="Login"  
+                    BackColor="#FFC82E"
+                    ForeColor="#6A0032" ID="btnLogin" OnClick="btnLogin_Click"/>
+            </header>
+
+            <div>
+                <asp:SiteMapPath CssClass="navbar" ID="SiteMapPath1" runat="server" PathSeparator=" > " RenderCurrentNodeAsLink="false" Width="300px"></asp:SiteMapPath>
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
         </div>
     </form>
 </body>
