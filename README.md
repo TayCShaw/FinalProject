@@ -1,14 +1,4 @@
 # FinalProject
-
-4/27/2019
-
-CURRENT ISSUE:
-View count for threads is currently broken. It was working fine, but as I merged files something got messed up.
-
-ALSO: When imported into visual studio and attempting to run, an error may pop up saying part of the file path is missing. Specifically, roslyn\csc.exe. To fix this, the Nuget Package Manger Console must be opened in visual studio and the command: 
-
-Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
-
-must be ran.
-
-Here is a Google Drive download link to the project that is fully working (views as well), though the command above may need to be ran. https://drive.google.com/open?id=1JDxLgjYcOmgolfZEW-x1gEMmK2UWEbts
+Built by Taylor Shaw and Samuel Riegler
+This project was our final project for CPS420: Web Applications Design. This project is supposed to be a super small, scaled-down, basic feature version of a forum site. Users can register, post new threads, and reply to existing threads. 
+Built in Visual Studio with ASP.NET and C#. It is not a very extensive project, but it was a fairly extensive learning experience.
