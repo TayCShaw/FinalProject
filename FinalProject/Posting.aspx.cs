@@ -15,18 +15,16 @@ namespace FinalProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // IF USER IS REPLYING TO A THREAD, HIDE THE SUBJECT LABEL AND TEXTBOX, SHOW THE NAME OF THE THREAD
-            //f
-            
             if (String.IsNullOrEmpty(Request.QueryString["pfvers"]))
             {
-                //Somehow accessed
-                lblErrorMessage.Text = "ERROR. UNABLE TO FIND THREAD.";
+                // If somehow accessed without clicking on "New Thread" or "Reply"
+                lblErrorMessage.Text = "ERROR: UNABLE TO FIND THREAD.";
                 btnSubmit.Visible = false;
             }
-            else if(HttpContext.Current.Session["UserID"] == null)
+            else if (HttpContext.Current.Session["UserID"] == null)
             {
-                lblErrorMessage.Text = "You must be logged in to post.";
+                //Not logged in
+                lblErrorMessage.Text = "ERROR: You must be logged in to post.";
                 lblSubject.Visible = false;
                 txtSubject.Visible = false;
                 txtMessage.ReadOnly = true;
@@ -43,13 +41,18 @@ namespace FinalProject
                     lblSubject.Visible = false;
                     txtSubject.Visible = false;
                 }
-                
+                else
+                {
+                    lblErrorMessage.Text = "ERROR: No Thread";
+                }
 
             }
             else if (Request.QueryString["pfvers"].Equals("2"))
             {
                 //Creating a new thread
-                lblThreadname.Text = "New Thread";
+                lblThreadname.Text = "";
+
+                //Set to true for use in the btnSubmit_Click function
                 makingAThread = true;
             }
 
@@ -59,28 +62,28 @@ namespace FinalProject
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             // Variable definitions
-            
+
             string insertThreadString = "INSERT into Threads(threadID, threadSubject, timeCreated, userID, threadReplies, threadViews, timeModified) " +
                                     "values (@threadid, @threadsubject, @timecreated, @userid, @threadreplies, @threadviews, @timemodified)";
             string insertPostString = "INSERT into Posts(postID, postContent, timeCreated, threadID, userID) values (@postid, @postcontent, @timecreated, @threadid, @userid)";
 
-            if(HttpContext.Current.Session["UserID"] == null)
+            if (HttpContext.Current.Session["UserID"] == null)
             {
-                lblSubject.Text = "You must login to post a reply.";
+                lblSubject.Text = "ERROR: You must login to post a reply.";
             }
             else
             {
-                string usrID = Session["UserID"].ToString() ;
+                string usrID = Session["UserID"].ToString();
                 int userID = 0;
-                if(!Int32.TryParse(usrID, out userID))
+                if (!Int32.TryParse(usrID, out userID))
                 {
-                    lblThreadname.Text = "ERROR CONVERTING USERID TO INT";
+                    lblErrorMessage.Text = "Error 32";
                 }
-                else
-                {
-                    lblSubject.Text = userID.ToString();
-                }
-
+                /*               else
+                               {
+                                   lblSubject.Text = userID.ToString();
+                               }
+               */
 
                 // SQL Defintions
                 SqlConnection connection = new SqlConnection(connectionString);
@@ -90,12 +93,20 @@ namespace FinalProject
                 SqlCommand insertPost = new SqlCommand(insertPostString, connection);
                 SqlCommand maxThread = new SqlCommand("SELECT max(threadID) from Threads", connection);
                 SqlCommand maxPost = new SqlCommand("SELECT max(postID) from Posts", connection);
-                SqlCommand updateReply = new SqlCommand("UPDATE Threads SET threadReplies = threadReplies + 1 WHERE threadID = @threadid",connection);
+                SqlCommand updateReply = new SqlCommand("UPDATE Threads SET threadReplies = threadReplies + 1 WHERE threadID = @threadid", connection);
 
                 connection.Open();
-            // Creating the command to enter post into the Posts table
+                // Creating the postID
                 int newPostID = 0;
-                newPostID = (Int32)maxPost.ExecuteScalar() + 1;
+                try
+                {
+                    newPostID = (Int32)maxPost.ExecuteScalar() + 1; // New postID
+                }
+                catch (InvalidCastException) // Caught if there is no data in the post table
+                {
+                    newPostID = 1;
+                }
+
                 connection.Close();
                 //Determine if making a thread or making a post/reply
                 if (makingAThread)
@@ -107,9 +118,18 @@ namespace FinalProject
                     {
                         connection.Open();
                         // Creating the command to enter post into the Threads table
-                        newThreadID = (Int32)maxThread.ExecuteScalar() + 1; // New threadID
+                        try
+                        {
+                            newThreadID = (Int32)maxThread.ExecuteScalar() + 1; // New threadID
+                        }
+                        catch (InvalidCastException) // Caught if there is no data in the thread table
+                        {
+                            newThreadID = 1;
+                        }
+
                         connection.Close();
 
+                        // Filling in the command to insert the thread into DB
                         insertThread.Parameters.AddWithValue("@threadID", newThreadID);
                         insertThread.Parameters.AddWithValue("@threadsubject", threadSubject);
                         insertThread.Parameters.AddWithValue("@timecreated", DateTime.Now);
@@ -118,9 +138,7 @@ namespace FinalProject
                         insertThread.Parameters.AddWithValue("@threadviews", 0);
                         insertThread.Parameters.AddWithValue("@timemodified", DateTime.Now);
 
-
-
-
+                        // Filling in the command to insert the post into DB
                         insertPost.Parameters.AddWithValue("@postid", newPostID);
                         insertPost.Parameters.AddWithValue("@postcontent", txtMessage.Text);
                         insertPost.Parameters.AddWithValue("@timecreated", DateTime.Now);
@@ -134,11 +152,12 @@ namespace FinalProject
                         reader.Close();
                         connection.Open();
                         reader2 = insertPost.ExecuteReader();
-                        Response.Redirect(string.Format("~/Viewing.aspx?threadID={0}",newThreadID));
+                        Response.Redirect(string.Format("~/Viewing.aspx?threadID={0}", newThreadID));
                     }
                     catch (Exception er)
                     {
-                        lblErrorMessage.Text = er.ToString();
+                        //lblErrorMessage.Text = er.ToString();
+                        lblErrorMessage.Text = "ERROR: Max post length 2000 characters";
                     }
                     finally
                     {
@@ -167,6 +186,8 @@ namespace FinalProject
                         connection.Open();
                         //Update reply count on the thread
                         reader = updateReply.ExecuteReader();
+
+                        // Redirect to the thread that was just replied to
                         Response.Redirect(string.Format("~/Viewing.aspx?threadID={0}", Request.QueryString["thrpt"]));
 
                     }
@@ -178,7 +199,6 @@ namespace FinalProject
                     {
                         connection.Close();
                     }
-
                 }
             }
         }
