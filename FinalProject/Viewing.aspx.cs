@@ -19,7 +19,7 @@ namespace FinalProject
         {
             string updateViews = "UPDATE Threads SET threadViews = @threadviews WHERE threadID = @threadID";
 
-            string search = "SELECT DISTINCT Users.userName, Posts.postContent, Posts.timeCreated, Threads.threadSubject, Threads.threadViews " +
+            string search = "SELECT DISTINCT Users.userName, Posts.postContent, Posts.timeCreated, Threads.threadSubject, Threads.threadViews, Threads.threadReplies " +
                 "FROM Posts INNER JOIN Threads ON Posts.threadID = Threads.threadID INNER JOIN Users ON Posts.userID = Users.userID AND Posts.threadID = @threadid " +
                 "ORDER BY Posts.timeCreated ASC";
 
@@ -38,12 +38,14 @@ namespace FinalProject
                 connection.Open();
                 reader = threadInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
                 int threadViews = 0;
+                int threadReplies = 0;
                     while (reader.Read())
                     {
                         //Grab needed information from record
                         string postContent = reader["postContent"].ToString();
                         string dateCreation = reader["timeCreated"].ToString();
                         string userPosted = reader["Username"].ToString();
+                        string threadReplyCount = reader[""].ToString();
                         Int32.TryParse(reader["threadViews"].ToString(), out threadViews);
                         
 
