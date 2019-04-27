@@ -9,11 +9,6 @@ using System.Web.UI.WebControls;
 namespace FinalProject
 {
 
-    /*
-     * BASICALLY DONE, NEED TO REDIRECT TO HOME AND STORE USER DATA IN A COOKIE.
-     * PLUS ANY OTHER WORK THOUGHT OF AFTER THAT
-     * 
-     * */
     public partial class WebForm3 : System.Web.UI.Page
     {
         private string connectionString = Security.getConnection();
@@ -26,7 +21,7 @@ namespace FinalProject
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            SqlCommand search = new SqlCommand("SELECT * FROM Users WHERE userName = @username",connection);
+            SqlCommand search = new SqlCommand("SELECT * FROM Users WHERE userName = @username", connection);
             SqlDataReader reader;
 
             search.Parameters.AddWithValue("@username", txtUsername.Text);
@@ -38,7 +33,7 @@ namespace FinalProject
 
                 if (!reader.HasRows)
                 {
-                    lblErrorMessages.Text = "USER NOT FOUND!!";
+                    lblErrorMessages.Text = "Incorrect username or password";
                 }
                 else
                 {
@@ -47,7 +42,7 @@ namespace FinalProject
 
                     if (!pass.Equals(reader["userPassword"]))
                     {
-                        lblErrorMessages.Text = "Incorrect password";
+                        lblErrorMessages.Text = "Incorrect username or password";
                     }
                     else
                     {
@@ -65,11 +60,6 @@ namespace FinalProject
             {
                 connection.Close();
             }
-        }
-
-        public void AddCookie(String cookieName, String text)
-        {
-            Response.Cookies.Add(new HttpCookie(cookieName, text));
         }
     }
 }
