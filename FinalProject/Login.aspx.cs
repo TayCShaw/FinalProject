@@ -8,22 +8,13 @@ using System.Web.UI.WebControls;
 
 namespace FinalProject
 {
-
-    /*
-     * BASICALLY DONE, NEED TO REDIRECT TO HOME AND STORE USER DATA IN A COOKIE.
-     * PLUS ANY OTHER WORK THOUGHT OF AFTER THAT
-     * 
-     * */
     public partial class WebForm3 : System.Web.UI.Page
     {
         private string connectionString = Security.getConnection();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack && Request.Cookies["Username"] != null)
-            {
-                lblErrorMessages.Text = "SUCK A FAT TOOL, " + Request.Cookies["Username"].Value + ".";
-            }
+
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
