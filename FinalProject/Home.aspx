@@ -36,10 +36,13 @@
     </asp:Table>
     </div>--%>
     
-    <asp:Label ID="lblTest" runat="server"></asp:Label>
+    &nbsp;&nbsp;&nbsp;
+    
+    <asp:Label ID="lblWelcome" runat="server" Font-Bold="True" Font-Italic="True" Font-Names="Segoe UI Emoji" Font-Size="Medium" ForeColor="#6A0032"></asp:Label>
     <br />
     <div class="div-padding" >
-        <asp:GridView ID="GridView1" CssClass="div-table" BorderWidth="2px" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" HorizontalAlign="Center">
+        <asp:GridView ID="GridView1" CssClass="div-table" BorderWidth="2px" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" HorizontalAlign="Center" AllowSorting="True" ForeColor="Black">
+            <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:HyperLinkField DataTextField="Subject" 
                 DataNavigateUrlFields="threadID"
@@ -56,6 +59,8 @@
                 <ItemStyle HorizontalAlign="Center" />
             </asp:Boundfield>
         </Columns>
+            <HeaderStyle HorizontalAlign="Center" />
+            <RowStyle BackColor="#CCCCCC" />
         </asp:GridView>
     </div>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:UserConnectionString %>" SelectCommand="SELECT Threads.threadSubject AS Subject, Threads.threadReplies AS Replies, Threads.threadViews AS Views, Threads.threadID, Users.userName AS Creator FROM Threads INNER JOIN Users ON Threads.userID = Users.userID"></asp:SqlDataSource>
@@ -67,11 +72,6 @@
 </asp:Content>
 
 <asp:Content ID="Content3" runat="server" contentplaceholderid="head">
-    <style type="text/css">
-        .auto-style4 {
-            margin-left: 41px;
-        }
-    </style>
-</asp:Content>
+    </asp:Content>
 
 

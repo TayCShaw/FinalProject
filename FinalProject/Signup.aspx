@@ -45,12 +45,12 @@
             <td class="loginTable">&nbsp;</td>
             <td class="loginTable">
                 <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" Class="loginBtn" CausesValidation="False" />
+                <asp:Label ID="lblErrorMessages" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
             <td class="loginTable">
-                <asp:Label ID="lblErrorMessages" runat="server"></asp:Label>
-            </td>
+                &nbsp;</td>
             <td class="loginTable">&nbsp;</td>
         </tr>
         <tr>

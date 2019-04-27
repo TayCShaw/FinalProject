@@ -4,7 +4,8 @@
     <siteMapNode url="~/Login.aspx" title="Login" description=""/>
     <siteMapNode url="~/Signup.aspx" title="Signup"  description="" />
     <siteMapNode url="~/Viewing.aspx" title="Current Thread"  description="" />
-    <siteMapNode url="~/Posting.aspx" title="" description="" />
+    <siteMapNode url="~/Posting.aspx?pfvers=2" title="New Thread" description="" />
+    <siteMapNode url="~/Posting.aspx?pfvers=1" title="Reply" description ="" />
   </siteMapNode>
   
 </siteMap>

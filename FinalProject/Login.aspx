@@ -4,8 +4,7 @@
     <table class="w-100" style="margin:0 auto">
         <tr>
             <td style="text-align: right" class="loginTable" colspan="2">
-                <asp:Label ID="lblErrorMessages" runat="server"></asp:Label>
-            </td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td style="text-align: right" class="loginTable">
@@ -13,6 +12,7 @@
             </td>
             <td class="loginTable">
                 <asp:TextBox ID="txtUsername" class="loginTb" runat="server"></asp:TextBox>
+                <asp:Label ID="lblErrorMessages" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>

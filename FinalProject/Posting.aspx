@@ -13,7 +13,7 @@
     <table class="w-100">
         <tr>
             <td>
-                <asp:Label ID="lblThreadname" runat="server" Text="[THREAD/TOPIC NAME]"></asp:Label>
+                <asp:Label ID="lblThreadname" runat="server"></asp:Label>
             </td>
         </tr>
         <tr>
