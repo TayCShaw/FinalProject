@@ -11,3 +11,5 @@ Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
 
 must be ran.
 
+Here is a Google Drive download link to the project that is fully working, though the command above may need to be ran.
+https://drive.google.com/open?id=1fHLly2AS0ZJH3YH9X49njRDRsGpgUvMl
