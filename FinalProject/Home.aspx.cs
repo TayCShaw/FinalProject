@@ -17,16 +17,14 @@ namespace FinalProject
         {
             if (Session["Username"] != null)
             {
-                lblTest.Text = "Welcome, " + Session["Username"].ToString();
-                lblTest.Visible = true;
+                lblWelcome.Text = "Welcome, " + Session["Username"].ToString();
+                lblWelcome.Visible = true;
             }
             else
             {
-                lblTest.Text = "";
+                lblWelcome.Text = "";
             }
-
         }
-
 
         //Creating a brand new thread, NOT a response to a thread
         protected void btnNewThread_Click(object sender, EventArgs e)
