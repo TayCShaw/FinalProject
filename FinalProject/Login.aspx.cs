@@ -20,10 +20,7 @@ namespace FinalProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack && Request.Cookies["Username"] != null)
-            {
-                lblErrorMessages.Text = "SUCK A FAT TOOL, " + Request.Cookies["Username"].Value + ".";
-            }
+
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)

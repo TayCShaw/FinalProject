@@ -43,10 +43,7 @@ namespace FinalProject
                     lblSubject.Visible = false;
                     txtSubject.Visible = false;
                 }
-                else
-                {
-                    lblErrorMessage.Text = "shit's fucked yo.";
-                }
+                
 
             }
             else if (Request.QueryString["pfvers"].Equals("2"))
