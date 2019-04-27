@@ -38,67 +38,68 @@ namespace FinalProject
                 connection.Open();
                 reader = threadInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
                 int threadViews = 0;
-                    while (reader.Read())
-                    {
-                        //Grab needed information from record
-                        string postContent = reader["postContent"].ToString();
-                        string dateCreation = reader["timeCreated"].ToString();
-                        string userPosted = reader["Username"].ToString();
-                        Int32.TryParse(reader["threadViews"].ToString(), out threadViews);
-                        
-
-                        threadName = reader["threadSubject"].ToString();
-                        lblThreadName.Text = threadName;
-                        HtmlGenericControl postText = new HtmlGenericControl("div");
-                        postText.InnerHtml = postContent;
-
-                        HtmlGenericControl innerDiv = new HtmlGenericControl("div");
-
-                        HtmlGenericControl authorP = new HtmlGenericControl("p");
-                        authorP.Attributes.Add("class", "author");
-                        authorP.InnerHtml = userPosted + " " + dateCreation;
-
-                        innerDiv.Controls.Add(authorP);
-                        innerDiv.Controls.Add(postText);
-
-                        HtmlGenericControl backgroundDiv = new HtmlGenericControl("div");
-                        backgroundDiv.Attributes.Add("class", "post backgroundcolor-1");
-                        backgroundDiv.Controls.Add(innerDiv);
-
-                        Form.Controls.Add(backgroundDiv);
-
-
-                    }
-                    Button replyButton = new Button();
-                    replyButton.Attributes.Add("class", "loginBtn");
-                    replyButton.Text = "Reply";
-                    replyButton.Click += new EventHandler(btnReply_Click);
-                    Form.Controls.Add(replyButton);
-
-                    if (!IsPostBack)
-                    {
-                        threadViews += 1;
-                    }
-
-                    viewInformation.Parameters.AddWithValue("@threadviews", threadViews);
-                    viewInformation.Parameters.AddWithValue("@threadid", threadID);
-                    reader.Close();
-                    connection.Open();
-                    reader = viewInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);   
-                }
-                catch (Exception er)
+                while (reader.Read())
                 {
-                    lblErrorMessages.Text = er.ToString();
+                    //Grab needed information from record
+                    string postContent = reader["postContent"].ToString();
+                    string dateCreation = reader["timeCreated"].ToString();
+                    string userPosted = reader["Username"].ToString();
+                    Int32.TryParse(reader["threadViews"].ToString(), out threadViews);
+
+
+                    threadName = reader["threadSubject"].ToString();
+                    lblThreadName.Text = threadName;
+                    HtmlGenericControl postText = new HtmlGenericControl("div");
+                    postText.InnerHtml = postContent;
+
+                    HtmlGenericControl innerDiv = new HtmlGenericControl("div");
+
+                    HtmlGenericControl authorP = new HtmlGenericControl("p");
+                    authorP.Attributes.Add("class", "author");
+                    authorP.InnerHtml = userPosted + " " + dateCreation;
+
+                    innerDiv.Controls.Add(authorP);
+                    innerDiv.Controls.Add(postText);
+
+                    HtmlGenericControl backgroundDiv = new HtmlGenericControl("div");
+                    backgroundDiv.Attributes.Add("class", "post backgroundcolor-1");
+                    backgroundDiv.Controls.Add(innerDiv);
+
+                    Form.Controls.Add(backgroundDiv);
+
+
                 }
-                finally
+                Button replyButton = new Button();
+                replyButton.Attributes.Add("class", "loginBtn");
+                replyButton.Text = "Reply";
+                replyButton.Click += new EventHandler(btnReply_Click);
+                Form.Controls.Add(replyButton);
+
+                if (!IsPostBack)
                 {
-                    connection.Close();
+                    threadViews += 1;
                 }
+
+                viewInformation.Parameters.AddWithValue("@threadviews", threadViews);
+                viewInformation.Parameters.AddWithValue("@threadid", threadID);
+                reader.Close();
+                connection.Open();
+                reader = viewInformation.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
             }
-        
+            catch (Exception er)
+            {
+                lblErrorMessages.Text = er.ToString();
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
 
         protected void btnReply_Click(object sender, EventArgs e)
         {
+            //Redirects to Posting, sets up for a reply to a thread
             string redirect = "Posting.aspx?pfvers=1&thrpt=" + this.threadID.ToString();
             Session["threadName"] = threadName;
             Response.Redirect(redirect);
